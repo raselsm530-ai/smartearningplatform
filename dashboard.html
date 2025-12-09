@@ -1,1 +1,185 @@
-UTF-8'><title>Dashboard</title><link
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard | My Website</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ছোট ইনলাইন স্টাইল, শুধুমাত্র প্রয়োজনীয় রিএখ্যূলেশন মোবাইল জন্য */
+    .topbar {
+      background:#2e80ff; color:#fff; padding:18px 14px; text-align:center;
+      font-weight:700; font-size:18px;
+    }
+    .balance-card {
+      width:92%; max-width:720px; margin:18px auto; background:#fff;
+      border-radius:12px; padding:18px; box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    }
+    .balance-title { font-size:14px; color:#666; }
+    .balance-amount { font-size:28px; font-weight:700; color:#222; margin-top:6px; }
+    .row { display:flex; gap:12px; margin-top:14px; }
+    .btn-main {
+      flex:1; padding:12px; border-radius:10px; text-align:center; cursor:pointer;
+      background:#2e80ff; color:#fff; font-weight:600; text-decoration:none; display:inline-block;
+      box-shadow:0 4px 10px rgba(46,128,255,0.18);
+    }
+    .btn-secondary {
+      flex:1; padding:12px; border-radius:10px; text-align:center; cursor:pointer;
+      background:#fff; color:#2e80ff; border:1px solid #d9e6ff; font-weight:600;
+    }
+    .section { width:92%; max-width:720px; margin:16px auto; }
+    .card {
+      background:#fff; border-radius:12px; padding:14px; margin-bottom:12px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.06);
+    }
+    .card h3 { margin:0 0 8px 0; font-size:16px; color:#222; }
+    .small { font-size:13px; color:#666; }
+    .link-inline { color:#2e80ff; text-decoration:none; font-weight:600; }
+    /* modal simple */
+    .modal {
+      position:fixed; left:0; top:0; right:0; bottom:0; display:none;
+      align-items:center; justify-content:center; background:rgba(0,0,0,0.35);
+      z-index:9999;
+    }
+    .modal .box {
+      width:92%; max-width:420px; background:#fff; border-radius:12px; padding:16px;
+    }
+    .input { width:100%; padding:12px; border-radius:8px; border:1px solid #e0e0e0; margin-top:10px; }
+    .center { text-align:center; }
+    footer{ text-align:center; color:#888; font-size:13px; padding:26px 12px; }
+    @media(min-width:800px){ .row { max-width:720px; margin:18px auto; } }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">Dashboard</div>
+
+  <!-- Balance card -->
+  <div class="balance-card">
+    <div class="balance-title">Available Balance</div>
+    <div class="balance-amount" id="balanceAmount">৳ 1,250.00</div>
+
+    <div class="row">
+      <a class="btn-main" href="#" id="openDeposit">Deposit</a>
+      <a class="btn-secondary" href="#" id="openWithdraw">Withdraw</a>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="section">
+    <div class="card">
+      <h3>My Packages</h3>
+      <div class="small">You have 2 active packages</div>
+      <div style="margin-top:12px; display:flex; gap:10px;">
+        <div style="flex:1; background:#f6fbff; padding:10px; border-radius:8px;">
+          <div style="font-weight:700;">Basic Pack</div>
+          <div class="small">৳ 500 — Active</div>
+        </div>
+        <div style="flex:1; background:#fff6f6; padding:10px; border-radius:8px;">
+          <div style="font-weight:700;">Premium</div>
+          <div class="small">৳ 1000 — Active</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Bonuses & Offers</h3>
+      <div class="small">Available bonus: ৳ 50</div>
+      <div style="margin-top:10px;">
+        <a class="link-inline" href="#">Redeem bonus</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Join Our Group</h3>
+      <p class="small">Get support and updates — join our Telegram group.</p>
+      <div style="margin-top:10px;">
+        <a class="btn-main" href="https://t.me/your-group" target="_blank">Join Group</a>
+      </div>
+    </div>
+
+    <div class="card center">
+      <a class="link-inline" href="profile.html">Profile</a> &nbsp; • &nbsp;
+      <a class="link-inline" href="index.html">Home</a> &nbsp; • &nbsp;
+      <a class="link-inline" href="logout.html">Logout</a>
+    </div>
+  </div>
+
+  <footer>
+    © YourSiteName — Manage deposits, packages & withdrawals securely.
+  </footer>
+
+  <!-- Deposit modal -->
+  <div class="modal" id="modalDeposit" aria-hidden="true">
+    <div class="box">
+      <h3>Deposit Amount</h3>
+      <input id="depositAmount" class="input" type="number" placeholder="Enter amount (৳)" />
+      <div style="margin-top:12px; display:flex; gap:10px;">
+        <button class="btn-main" id="doDeposit">Deposit</button>
+        <button class="btn-secondary" id="closeDeposit">Cancel</button>
+      </div>
+      <p class="small" style="margin-top:10px;">Use your preferred payment method after confirming.</p>
+    </div>
+  </div>
+
+  <!-- Withdraw modal -->
+  <div class="modal" id="modalWithdraw" aria-hidden="true">
+    <div class="box">
+      <h3>Withdraw Amount</h3>
+      <input id="withdrawAmount" class="input" type="number" placeholder="Enter amount (৳)" />
+      <input id="withdrawMethod" class="input" type="text" placeholder="Payment method (Bkash/Rocket/etc.)" />
+      <div style="margin-top:12px; display:flex; gap:10px;">
+        <button class="btn-main" id="doWithdraw">Request Withdraw</button>
+        <button class="btn-secondary" id="closeWithdraw">Cancel</button>
+      </div>
+      <p class="small" style="margin-top:10px;">Withdraw requests are processed within 24-48 hours (example).</p>
+    </div>
+  </div>
+
+  <script>
+    // Simple frontend demo logic (no backend). Replace with real API calls later.
+    let balance = 1250.00;
+    const balanceEl = document.getElementById('balanceAmount');
+
+    // Modal handlers
+    const modalDeposit = document.getElementById('modalDeposit');
+    const modalWithdraw = document.getElementById('modalWithdraw');
+
+    document.getElementById('openDeposit').addEventListener('click', function(e){
+      e.preventDefault(); modalDeposit.style.display = 'flex';
+    });
+    document.getElementById('closeDeposit').addEventListener('click', function(){ modalDeposit.style.display = 'none'; });
+    document.getElementById('openWithdraw').addEventListener('click', function(e){
+      e.preventDefault(); modalWithdraw.style.display = 'flex';
+    });
+    document.getElementById('closeWithdraw').addEventListener('click', function(){ modalWithdraw.style.display = 'none'; });
+
+    // Fake deposit action
+    document.getElementById('doDeposit').addEventListener('click', function(){
+      const v = parseFloat(document.getElementById('depositAmount').value || 0);
+      if(v <= 0){ alert('Enter a valid amount'); return; }
+      balance += v;
+      balanceEl.textContent = '৳ ' + balance.toFixed(2);
+      modalDeposit.style.display = 'none';
+      alert('Deposit recorded (demo). In real system you will be redirected to payment.');
+    });
+
+    // Fake withdraw action
+    document.getElementById('doWithdraw').addEventListener('click', function(){
+      const v = parseFloat(document.getElementById('withdrawAmount').value || 0);
+      if(v <= 0 || v > balance){ alert('Enter a valid amount (<= balance)'); return; }
+      balance -= v;
+      balanceEl.textContent = '৳ ' + balance.toFixed(2);
+      modalWithdraw.style.display = 'none';
+      alert('Withdraw request sent (demo). Admin will approve in real system.');
+    });
+
+    // close modals if click outside
+    window.addEventListener('click', function(e){
+      if(e.target === modalDeposit) modalDeposit.style.display = 'none';
+      if(e.target === modalWithdraw) modalWithdraw.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>

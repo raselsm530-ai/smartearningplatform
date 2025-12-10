@@ -1,4 +1,4 @@
-document.getElementById("signupForm").addEventListener("submit", function(e){
+document.getElementById("signupForm")?.addEventListener("submit", function(e){
     e.preventDefault();
 
     let name = document.getElementById("name").value;
@@ -6,17 +6,15 @@ document.getElementById("signupForm").addEventListener("submit", function(e){
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
-    // আগেই কি ইউজারনেম আছে?
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    let alreadyExists = users.some(u => u.username === username);
+    let exists = users.some(u => u.username === username);
 
-    if(alreadyExists){
-        alert("Username already exists. Try another.");
+    if(exists){
+        alert("Username already exists!");
         return;
     }
 
-    // নতুন ইউজার সেভ করা
     users.push({
         name: name,
         email: email,
@@ -28,4 +26,26 @@ document.getElementById("signupForm").addEventListener("submit", function(e){
 
     alert("Account created successfully!");
     window.location.href = "login.html";
+});
+
+
+// ---------------- LOGIN ----------------
+
+document.getElementById("loginForm")?.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    let user = users.find(u => u.username === username && u.password === password);
+
+    if(user){
+        alert("Login successful!");
+        localStorage.setItem("loggedUser", JSON.stringify(user));
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Invalid username or password");
+    }
 });

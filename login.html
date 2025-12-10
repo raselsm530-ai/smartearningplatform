@@ -3,23 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Earning Platform - Login</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login - Smart Earning Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #e8eef7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            width: 320px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        a {
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
+<div class="box">
     <h2>Login</h2>
 
-    <input type="text" id="login-username" placeholder="Username">
-    <input type="password" id="login-password" placeholder="Password">
+    <input type="text" id="email" placeholder="Email or Username" required>
+    <input type="password" id="password" placeholder="Password" required>
 
-    <button onclick="login()">Login</button>
-
-    <a href="index.html">Create a new account</a>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
-    
+    <button onclick="

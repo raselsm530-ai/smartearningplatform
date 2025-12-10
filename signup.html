@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Sign Up</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="app.js"></script>
+
+<style>
+body {font-family: Arial; background:#f2f2f2; display:flex; justify-content:center; align-items:center; height:100vh;margin:0;}
+.box {background:#fff; padding:25px; border-radius:10px; width:90%; max-width:350px; text-align:center; box-shadow:0 0 10px rgba(0,0,0,0.2);}
+input,button {width:100%; padding:12px; margin:8px 0; border-radius:5px; border:1px solid #aaa;}
+button {background:#2196F3; color:white; border:none; font-size:16px; cursor:pointer;}
+a {text-decoration:none; display:block; margin-top:10px; color:blue;}
+</style>
 </head>
+
 <body>
 
 <div class="box">
     <h2>Create Account</h2>
 
-    <form id="signupForm">
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="text" id="phone" placeholder="Phone Number" required>
-        <input type="password" id="password" placeholder="Password" required>
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="phone" placeholder="Phone Number">
+    <input type="password" id="password" placeholder="Password">
 
-        <button type="submit">Sign Up</button>
-    </form>
+    <button onclick="signupUser()">Sign Up</button>
 
-    <p>Already have an account?
-        <a href="login.html">Login here</a>
-    </p>
+    <a href="index.html">Already have an account? Login</a>
 </div>
-
-<script src="signup.js"></script>
 
 </body>
 </html>

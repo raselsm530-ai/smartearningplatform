@@ -1,94 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Smart Earning Platform</title>
-    <style>
-        body { font-family: Arial; text-align: center; padding: 20px; }
-        .box { max-width: 350px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
-        input { width: 90%; padding: 10px; margin: 8px; }
-        button { padding: 10px 20px; margin: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Earning Platform - Login</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
+
+    .box {
+        width: 90%;
+        max-width: 380px;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        font-size: 17px;
+        cursor: pointer;
+    }
+
+    a {
+        display: block;
+        margin-top: 12px;
+        text-decoration: none;
+        color: blue;
+        font-size: 15px;
+    }
+</style>
+
 </head>
 <body>
 
-    <!-- LOGIN PAGE -->
-    <div id="login" class="box">
-        <h2>Login</h2>
-        <input id="logUser" type="text" placeholder="Username">
-        <input id="logPass" type="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-        <p><a onclick="showSignup()" style="color:blue; cursor:pointer;">Create new account</a></p>
-    </div>
+<div class="box">
+    <h2>Login</h2>
 
-    <!-- SIGNUP PAGE -->
-    <div id="signup" class="box" style="display:none;">
-        <h2>Create Account</h2>
-        <input id="regUser" type="text" placeholder="Username">
-        <input id="regPass" type="password" placeholder="Password">
-        <button onclick="signup()">Sign Up</button>
-        <p><a onclick="showLogin()" style="color:blue; cursor:pointer;">Already have an account?</a></p>
-    </div>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
 
-    <!-- DASHBOARD -->
-    <div id="dashboard" style="display:none;">
-        <h2>Welcome!</h2>
-        <h3 id="showUser"></h3>
-        <button onclick="logout()">Logout</button>
-    </div>
+    <button onclick="login()">Login</button>
+    <a href="signup.html">Create new account</a>
+</div>
 
 <script>
-
-function signup() {
-    var u = document.getElementById("regUser").value;
-    var p = document.getElementById("regPass").value;
-
-    if (u === "" || p === "") {
-        alert("All fields required!");
-        return;
-    }
-
-    localStorage.setItem("user", u);
-    localStorage.setItem("pass", p);
-
-    alert("Account created!");
-    showLogin();
-}
-
 function login() {
-    var u = document.getElementById("logUser").value;
-    var p = document.getElementById("logPass").value;
-
-    if (u === localStorage.getItem("user") && p === localStorage.getItem("pass")) {
-        document.getElementById("showUser").innerText = "User: " + u;
-        showDashboard();
-    } else {
-        alert("Wrong username or password!");
-    }
+    alert("Login system later add করা হবে");
 }
-
-function showLogin() {
-    document.getElementById("signup").style.display = "none";
-    document.getElementById("login").style.display = "block";
-    document.getElementById("dashboard").style.display = "none";
-}
-
-function showSignup() {
-    document.getElementById("signup").style.display = "block";
-    document.getElementById("login").style.display = "none";
-    document.getElementById("dashboard").style.display = "none";
-}
-
-function showDashboard() {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("signup").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
-}
-
-function logout() {
-    showLogin();
-}
-
 </script>
 
 </body>

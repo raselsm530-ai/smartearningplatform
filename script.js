@@ -1,61 +1,31 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.getElementById("signupForm").addEventListener("submit", function(e){
+    e.preventDefault();
 
-    // -------- SIGNUP SYSTEM --------
-    const signupForm = document.getElementById("signupForm");
-    if (signupForm) {
-        signupForm.addEventListener("submit", (e) => {
-            e.preventDefault();
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
 
-            const name = document.getElementById("fullName").value;
-            const email = document.getElementById("email").value;
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+    // আগেই কি ইউজারনেম আছে?
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-            if (!name || !email || !username || !password) {
-                alert("All fields are required!");
-                return;
-            }
+    let alreadyExists = users.some(u => u.username === username);
 
-            // Save user in localStorage
-            const user = { name, email, username, password };
-            localStorage.setItem("user", JSON.stringify(user));
-
-            alert("Account created successfully!");
-            window.location.href = "login.html";
-        });
+    if(alreadyExists){
+        alert("Username already exists. Try another.");
+        return;
     }
 
-    // -------- LOGIN SYSTEM --------
-    const loginForm = document.getElementById("loginForm");
-    if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
-            e.preventDefault();
+    // নতুন ইউজার সেভ করা
+    users.push({
+        name: name,
+        email: email,
+        username: username,
+        password: password
+    });
 
-            const username = document.getElementById("loginUsername").value;
-            const password = document.getElementById("loginPassword").value;
+    localStorage.setItem("users", JSON.stringify(users));
 
-            const savedUser = JSON.parse(localStorage.getItem("user"));
-
-            if (!savedUser) {
-                alert("No account found! Please sign up first.");
-                return;
-            }
-
-            if (username === savedUser.username && password === savedUser.password) {
-                alert("Login Successful!");
-                localStorage.setItem("loggedIn", "true");
-                window.location.href = "dashboard.html";
-            } else {
-                alert("Incorrect username or password!");
-            }
-        });
-    }
-
-    // -------- DASHBOARD PROTECTION --------
-    if (window.location.pathname.includes("dashboard.html")) {
-        if (localStorage.getItem("loggedIn") !== "true") {
-            window.location.href = "login.html";
-        }
-    }
-
+    alert("Account created successfully!");
+    window.location.href = "login.html";
 });

@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <div class="container">
@@ -18,10 +16,32 @@
 
         <button onclick="login()">Login</button>
 
-        <p>Don't have an account? <a href="index.html">Sign Up</a></p>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
     </div>
 
-    <script src="login.js"></script>
+    <script>
+        function login() {
+            let phone = document.getElementById("phone").value;
+            let password = document.getElementById("password").value;
+
+            let storedUser = localStorage.getItem("user");
+
+            if (!storedUser) {
+                alert("No user found! Please sign up first.");
+                return;
+            }
+
+            let user = JSON.parse(storedUser);
+
+            if (phone === user.phone && password === user.password) {
+                alert("Login Successful!");
+                // FIXED REDIRECT
+                window.location.href = "/dashboard.html";
+            } else {
+                alert("Incorrect Phone or Password!");
+            }
+        }
+    </script>
 
 </body>
 </html>

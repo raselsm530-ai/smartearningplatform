@@ -1,72 +1,49 @@
-<!DOCTYPE html><html><head><meta <!DOCTYPE html><html><head><meta charset=' rel='stylesheet' href='css/style.css'></head><body><h1>Home Page</h1></body></html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | My Website</title>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-        }
-
-        header {
-            background: #4A90E2;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .container {
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #333;
-            font-size: 30px;
-        }
-
-        p {
-            color: #555;
-            font-size: 18px;
-        }
-
-        .btn {
-            display: inline-block;
-            margin: 15px;
-            padding: 12px 25px;
-            background: #4A90E2;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        .btn:hover {
-            background: #357ABD;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header>
-    Welcome to My Website
-</header>
+    <div class="container">
+        <h2>Login</h2>
 
-<div class="container">
-    <h1>Home Page</h1>
-    <p>Choose an option below:</p>
+        <form id="loginForm">
+            <input type="text" id="phone" placeholder="Phone Number" required />
+            <input type="password" id="password" placeholder="Password" required />
 
-    <a class="btn" href="login.html">Login</a>
-    <a class="btn" href="signup.html">Sign Up</a>
-</div>
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+    </div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let phone = document.getElementById("phone").value;
+    let password = document.getElementById("password").value;
+
+    let savedUser = JSON.parse(localStorage.getItem(phone));
+
+    if(savedUser){
+        if(savedUser.password === password){
+            localStorage.setItem("loggedUser", phone);
+            alert("Login Successful!");
+            window.location.href = "dashboard.html";
+        } else {
+            alert("Incorrect Password!");
+        }
+    } else {
+        alert("User not found!");
+    }
+});
+</script>
 
 </body>
 </html>
+    

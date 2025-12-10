@@ -1,53 +1,21 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Earning Platform - Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 20px;
-            text-align: center;
-        }
-        .box {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: auto;
-            max-width: 350px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h2 { color: #333; }
-        button {
-            padding: 10px 20px;
-            border: none;
-            background: #007bff;
-            color: white;
-            border-radius: 5px;
-            margin-top: 20px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="checkLogin()"> 
 
-    <div class="box">
-        <h2>Welcome to Your Dashboard</h2>
-        <p>You are successfully logged in!</p>
+<div class="container">
+    <h2>Welcome to Dashboard</h2>
 
-        <button onclick="logout()">Logout</button>
-    </div>
+    <p id="user-info"></p>
 
-    <script>
-        function logout() {
-            window.location.href = "login.html";
-        }
-    </script>
+    <button onclick="logout()">Logout</button>
+</div>
 
+<script src="script.js"></script>
 </body>
-</html>          
+</html>

@@ -1,95 +1,48 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>নিবন্ধন</title>
+    <title>Register</title>
+
+    <!-- CSS Proper Path -->
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        body {
-            background: #f5f5f5;
-            font-family: sans-serif;
-        }
-        .reg-container {
-            width: 90%;
-            max-width: 380px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .reg-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .input-box {
-            margin-bottom: 15px;
-        }
-        .input-box input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid green;
-            border-radius: 25px;
-            background: #eee;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(to right, #2ecc71, #27ae60);
-            border: none;
-            color: white;
-            font-size: 18px;
-            border-radius: 25px;
-            cursor: pointer;
-        }
-        button:hover { opacity: 0.9; }
-
-        .login-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .login-link a {
-            color: green;
-        }
-    </style>
 </head>
 
 <body>
 
-    <div class="reg-container">
+    <div class="container">
 
-        <h2>নিবন্ধন</h2>
+        <h2>রেজিস্টার</h2>
 
-        <div class="input-box">
-            <input type="number" id="phone" placeholder="ফোন নম্বর">
+        <div class="input-group">
+            <input type="text" id="phone" placeholder="মোবাইল নম্বর">
         </div>
 
-        <div class="input-box">
-            <input type="password" id="password" placeholder="লগইন পাসওয়ার্ড লিখুন">
+        <div class="input-group">
+            <input type="password" id="password" placeholder="পাসওয়ার্ড">
         </div>
 
-        <div class="input-box">
-            <input type="password" id="confirmPassword" placeholder="লগইন পাসওয়ার্ড নিশ্চিত করুন">
+        <div class="input-group">
+            <input type="password" id="confirmPassword" placeholder="কনফার্ম পাসওয়ার্ড">
         </div>
 
-        <div class="input-box">
-            <input type="number" id="pin" placeholder="উত্তোলন পিন লিখুন">
+        <div class="input-group">
+            <input type="number" id="withdrawPin" placeholder="উইথড্রো পিন (৪ সংখ্যা)">
         </div>
 
-        <div class="input-box">
-            <input type="text" id="referral" placeholder="আমন্ত্রণ কোড (optional)">
+        <div class="input-group">
+            <input type="text" id="refCode" placeholder="রেফার কোড">
         </div>
 
-        <button onclick="register()">নিবন্ধন</button>
+        <button onclick="registerUser()">রেজিস্টার</button>
 
         <div class="login-link">
             <a href="login.html">লগইন</a>
         </div>
+
     </div>
 
     <script src="register.js"></script>
 </body>
-</html>
+</html>           

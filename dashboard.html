@@ -3,59 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>User Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #3a7bd5, #00d2ff);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard-box {
+            width: 90%;
+            max-width: 450px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        #username {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #ff4d4d;
+            color: white;
+            font-size: 18px;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e60000;
+        }
+    </style>
 </head>
 
 <body>
-
     <div class="dashboard-box">
+        <h2>Welcome, <span id="username"></span> 👋</h2>
+        <p>You are logged in successfully.</p>
 
-        <h2>Welcome!</h2>
-
-        <p id="userName"></p>
-        <p id="userPhone"></p>
-
-        <h3>Your Wallet Balance</h3>
-        <p id="balance">0 BDT</p>
-
-        <h3>Your Group</h3>
-        <p id="userGroup">Not Joined</p>
-        <a href="group.html">Join a Group</a>
-
-        <br><br>
-
-        <button onclick="location.href='deposit.html'">Deposit</button>
-        <button onclick="location.href='wallet.html'">Wallet</button>
-        <button onclick="location.href='withdraw.html'">Withdraw</button>
-
-        <button onclick="logout()" style="background:red;color:white;">Logout</button>
-
+        <button onclick="logout()">Logout</button>
     </div>
 
     <script>
-        // Load stored user info
-        let user = JSON.parse(localStorage.getItem("user"));
-        let group = localStorage.getItem("userGroup");
-        let balance = localStorage.getItem("balance") || 0;
+        const loggedUser = localStorage.getItem("user");
 
-        if (!user) {
+        if (!loggedUser) {
             window.location.href = "login.html";
         }
 
-        document.getElementById("userName").innerText = "Name: " + user.fullname;
-        document.getElementById("userPhone").innerText = "Phone: " + user.phone;
-        document.getElementById("balance").innerText = balance + " BDT";
-
-        if (group) {
-            document.getElementById("userGroup").innerText = group;
-        }
+        document.getElementById("username").innerText = loggedUser;
 
         function logout() {
             localStorage.removeItem("user");
             window.location.href = "login.html";
         }
     </script>
-
 </body>
 </html>

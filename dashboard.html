@@ -9,62 +9,46 @@
 
 <body>
 
-    <div class="container">
+    <div class="dashboard-box">
+
         <h2>Welcome!</h2>
 
         <p id="userName"></p>
         <p id="userPhone"></p>
 
-        <hr>
-
         <h3>Your Wallet Balance</h3>
-        <p><strong><span id="walletBalance">0</span> BDT</strong></p>
-
-        <hr>
+        <p id="balance">0 BDT</p>
 
         <h3>Your Group</h3>
-        <p><span id="groupName">Not Joined</span></p>
+        <p id="userGroup">Not Joined</p>
         <a href="group.html">Join a Group</a>
 
-        <hr>
-
-        <button onclick="goDeposit()">Deposit</button>
-        <button onclick="goWallet()">Wallet</button>
-        <button onclick="goWithdraw()">Withdraw</button>
-
         <br><br>
-        <button onclick="logout()">Logout</button>
+
+        <button onclick="location.href='deposit.html'">Deposit</button>
+        <button onclick="location.href='wallet.html'">Wallet</button>
+        <button onclick="location.href='withdraw.html'">Withdraw</button>
+
+        <button onclick="logout()" style="background:red;color:white;">Logout</button>
+
     </div>
 
     <script>
-        // Load user
+        // Load stored user info
         let user = JSON.parse(localStorage.getItem("user"));
+        let group = localStorage.getItem("userGroup");
+        let balance = localStorage.getItem("balance") || 0;
+
         if (!user) {
             window.location.href = "login.html";
         }
 
         document.getElementById("userName").innerText = "Name: " + user.fullname;
         document.getElementById("userPhone").innerText = "Phone: " + user.phone;
+        document.getElementById("balance").innerText = balance + " BDT";
 
-        // Load balance
-        let balance = localStorage.getItem("wallet") || 0;
-        document.getElementById("walletBalance").innerText = balance;
-
-        // Load group
-        let group = localStorage.getItem("userGroup") || "Not Joined";
-        document.getElementById("groupName").innerText = group;
-
-        // Buttons
-        function goDeposit() {
-            window.location.href = "deposit.html";
-        }
-
-        function goWallet() {
-            window.location.href = "wallet.html";
-        }
-
-        function goWithdraw() {
-            window.location.href = "withdraw.html";
+        if (group) {
+            document.getElementById("userGroup").innerText = group;
         }
 
         function logout() {

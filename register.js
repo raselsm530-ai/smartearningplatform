@@ -1,49 +1,50 @@
-// REGISTER USER
-document.getElementById("registerForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
+function registerUser() {
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
     let confirmPassword = document.getElementById("confirmPassword").value.trim();
     let withdrawPin = document.getElementById("withdrawPin").value.trim();
-    let invite = document.getElementById("inviteCode").value.trim();
+    let refCode = document.getElementById("refCode").value.trim();
 
-    if (phone === "" || password === "" || confirmPassword === "" || withdrawPin === "" || invite === "") {
-        alert("সব ফিল্ড পূরণ করুন!");
+    // Phone number validation
+    if (phone.length !== 11 || !phone.startsWith("01")) {
+        alert("সঠিক মোবাইল নম্বর দিন (১১ সংখ্যা)");
         return;
     }
 
+    // Password match check
     if (password !== confirmPassword) {
-        alert("পাসওয়ার্ড মিলছে না!");
+        alert("পাসওয়ার্ড ও কনফার্ম পাসওয়ার্ড মিলছে না!");
         return;
     }
 
-    if (withdrawPin.length !== 4 || isNaN(withdrawPin)) {
-        alert("উত্তোলন পিন অবশ্যই ৪ সংখ্যার হতে হবে!");
+    // Withdraw PIN check
+    if (withdrawPin.length !== 4) {
+        alert("উইথড্রো পিন অবশ্যই ৪ সংখ্যা হতে হবে!");
         return;
     }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    let userExists = users.find(u => u.phone === phone);
-    if (userExists) {
-        alert("এই নম্বর দিয়ে আগে অ্যাকাউন্ট খোলা হয়েছে!");
+    // Check required fields
+    if (!phone || !password || !confirmPassword || !withdrawPin) {
+        alert("সব ঘর পূরণ করুন!");
         return;
     }
 
-    let newUser = {
+    // Check if user already exists
+    if (localStorage.getItem(phone)) {
+        alert("এই নম্বরে আগে থেকেই অ্যাকাউন্ট রয়েছে!");
+        return;
+    }
+
+    // Save user data
+    let user = {
         phone: phone,
         password: password,
         withdrawPin: withdrawPin,
-        invite: invite,
-        balance: 0,
-        group: ""
+        ref: refCode ? refCode : "NO-REF"
     };
 
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("currentUser", phone);
+    localStorage.setItem(phone, JSON.stringify(user));
 
     alert("রেজিস্ট্রেশন সফল হয়েছে!");
     window.location.href = "login.html";
-});
+}

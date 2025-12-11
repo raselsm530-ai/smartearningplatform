@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>লগইন</title>
+
+    <!-- CSS FILE LINK -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <div class="container">
+
         <h2>লগইন</h2>
 
-        <form id="loginForm">
-            
-            <div class="input-group">
-                <input type="text" id="phone" placeholder="মোবাইল নম্বর" required>
-            </div>
+        <div class="input-group">
+            <input type="text" id="phone" placeholder="মোবাইল নম্বর">
+        </div>
 
-            <div class="input-group">
-                <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
-            </div>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="পাসওয়ার্ড">
+        </div>
 
-            <button type="submit">লগইন</button>
-        </form>
+        <button onclick="loginUser()">লগইন</button>
 
-        <p>একাউন্ট নেই? <a href="index.html">রেজিস্টার করুন</a></p>
+        <div class="signup-link">
+            একাউন্ট নেই? <a href="register.html">রেজিস্টার করুন</a>
+        </div>
+
     </div>
 
     <script src="login.js"></script>

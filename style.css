@@ -5,6 +5,78 @@ body {
     background: #eef3ff;
 }
 
+/* ---------- LOGIN & REGISTER PAGE ---------- */
+
+.container {
+    width: 90%;
+    max-width: 420px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #3d5af1;
+    box-shadow: 0 0 6px rgba(61, 90, 241, 0.3);
+}
+
+button, .btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: #3d5af1;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+button:hover {
+    background: #3249d6;
+}
+
+.signup-link, .login-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 15px;
+}
+
+.signup-link a, .login-link a {
+    color: #3d5af1;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-link a:hover, .login-link a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- HOME PAGE ---------- */
+
 /* Header Section */
 .home-header {
     background: linear-gradient(135deg, #3d5af1, #5a73ec);
@@ -88,7 +160,6 @@ body {
     margin-top: 5px;
 }
 
-/* Hover Effect */
 .menu-card:hover {
     transform: scale(1.06);
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -99,4 +170,4 @@ body {
     background: #ffebeb !important;
     color: #d00000 !important;
     border: 2px solid #ffbcbc;
-}
+}    

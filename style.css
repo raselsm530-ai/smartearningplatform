@@ -113,3 +113,72 @@ button:hover {
 .logout-btn:hover {
     opacity: 0.85;
 }
+/* HOME PAGE NEW DESIGN */
+
+body {
+    background: #f4f6ff;
+}
+
+.home-header {
+    text-align: center;
+    padding: 20px;
+    background: #4e73df;
+    color: #fff;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.home-header h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.home-header p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.home-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.feature-card {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    transition: 0.3s;
+}
+
+.feature-card img {
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.logout-card {
+    background: #ffe5e5;
+    border: 2px solid #ffb3b3;
+}
+
+.logout-card h3 {
+    color: #d9534f;
+}

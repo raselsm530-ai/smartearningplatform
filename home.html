@@ -14,47 +14,44 @@
         <p id="welcomeText"></p>
     </div>
 
-    <div class="home-container">
+    <div class="new-home-container">
 
-        <!-- ব্যালেন্স কার্ড -->
-        <div class="feature-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/929/929430.png" alt="">
-            <h3>ব্যালেন্স</h3>
+        <div class="balance-box">
+            <h3>বর্তমান ব্যালেন্স</h3>
             <p id="balanceText">0 ৳</p>
         </div>
 
-        <!-- Add Money Card -->
-        <div class="feature-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="">
-            <h3>টাকা যোগ করুন</h3>
+        <div class="grid-menu">
 
-            <input type="number" id="amount" placeholder="পরিমাণ লিখুন" class="input-box">
-            <button onclick="addMoney()" class="add-btn">Add Money</button>
-        </div>
+            <div class="menu-card" onclick="window.location.href='add_money.html'">
+                <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png">
+                <h4>টাকা যোগ</h4>
+            </div>
 
-        <!-- প্রোফাইল -->
-        <div class="feature-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/126/126083.png" alt="">
-            <h3>প্রোফাইল</h3>
-            <p>দেখুন</p>
-        </div>
+            <div class="menu-card" onclick="window.location.href='withdraw.html'">
+                <img src="https://cdn-icons-png.flaticon.com/512/929/929430.png">
+                <h4>টাকা উত্তোলন</h4>
+            </div>
 
-        <!-- লেনদেন -->
-        <div class="feature-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/684/684831.png" alt="">
-            <h3>লেনদেন</h3>
-            <p>ইতিহাস</p>
-        </div>
+            <div class="menu-card" onclick="window.location.href='history.html'">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png">
+                <h4>লেনদেন</h4>
+            </div>
 
-        <!-- লগআউট -->
-        <div class="feature-card logout-card" onclick="logoutUser()">
-            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828427.png" alt="">
-            <h3>লগআউট</h3>
+            <div class="menu-card" onclick="window.location.href='profile.html'">
+                <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png">
+                <h4>প্রোফাইল</h4>
+            </div>
+
+            <div class="menu-card logout" onclick="logoutUser()">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828427.png">
+                <h4>লগআউট</h4>
+            </div>
+
         </div>
 
     </div>
 
     <script src="home.js"></script>
-    <script src="addmoney.js"></script>
 </body>
 </html>

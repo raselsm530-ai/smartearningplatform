@@ -1,11 +1,12 @@
 function registerUser() {
+
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
     let confirmPassword = document.getElementById("confirmPassword").value.trim();
     let withdrawPin = document.getElementById("withdrawPin").value.trim();
     let refCode = document.getElementById("refCode").value.trim();
 
-    // মোবাইল নম্বর চেক
+    // মোবাইল নম্বর যাচাই
     if (phone.length !== 11 || !phone.startsWith("01")) {
         alert("সঠিক মোবাইল নম্বর দিন (১১ সংখ্যা)");
         return;
@@ -17,35 +18,39 @@ function registerUser() {
         return;
     }
 
-    // উইথড্রো পিন চেক
+    // উইথড্র পিন চেক
     if (withdrawPin.length !== 4) {
         alert("উইথড্রো পিন অবশ্যই ৪ সংখ্যা হতে হবে!");
         return;
     }
 
-    // সব ঘর পূরণ করা হয়েছে কিনা
+    // ঘর পূরণ হয়েছে কিনা
     if (!phone || !password || !confirmPassword || !withdrawPin) {
         alert("সব ঘর পূরণ করুন!");
         return;
     }
 
-    // ইউজার আগে আছে কিনা
+    // আগে অ্যাকাউন্ট আছে কিনা
     if (localStorage.getItem(phone)) {
         alert("এই নম্বরে আগে থেকেই অ্যাকাউন্ট রয়েছে!");
         return;
     }
 
-    // ইউজার ডাটা সেভ করা
+    // ইউজার ডাটা তৈরি
     let user = {
         phone: phone,
         password: password,
         withdrawPin: withdrawPin,
         ref: refCode ? refCode : "NO-REF",
-        balance: 0  // নতুন ব্যালেন্স যোগ করা হলো
+        balance: 0   // প্রথমে ব্যালেন্স 0
     };
 
+    // ইউজার সংরক্ষণ
     localStorage.setItem(phone, JSON.stringify(user));
 
-    alert("রেজিস্ট্রেশন সফল হয়েছে!");
+    alert("রেজিস্ট্রেশন সম্পন্ন হয়েছে!");
+
+    // লগইন পেজে পাঠানো
     window.location.href = "login.html";
 }
+    

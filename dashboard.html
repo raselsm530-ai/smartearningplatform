@@ -1,30 +1,31 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ড্যাশবোর্ড</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="dashboard">
-
+    <div class="topbar">
         <h2>ড্যাশবোর্ড</h2>
+    </div>
 
-        <p id="welcomeText"></p>
+    <div class="dashboard-box">
 
-        <div class="balance-box">
+        <p id="welcomeText" class="welcome"></p>
+
+        <div class="balance-card">
             <h3>বর্তমান ব্যালেন্স</h3>
-            <p id="balance">0 ৳</p>
+            <p id="balance" class="amount">0 ৳</p>
         </div>
 
         <button onclick="logoutUser()" class="logout-btn">লগআউট</button>
-
     </div>
 
     <script src="dashboard.js"></script>
+
 </body>
-</html>           
+</html>

@@ -2,26 +2,23 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
+    <title>লেনদেন হিস্টরি</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লেনদেন হিস্টোরি</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
+    <h2 class="page-title">উত্তোলন হিস্টরি</h2>
 
-        <h2>লেনদেন হিস্টোরি</h2>
+    <div id="historyList"></div>
 
-        <div id="historyList" class="history-box">
-            <!-- হিস্টোরি এখানে দেখানো হবে -->
-        </div>
+    <button class="btn-primary" onclick="window.location.href='home.html'">
+        হোমে ফিরে যান
+    </button>
+</div>
 
-        <button onclick="goHome()">হোমে ফিরে যান</button>
-
-    </div>
-
-    <script src="history.js"></script>
-
+<script src="history.js"></script>
 </body>
 </html>

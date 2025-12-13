@@ -1,35 +1,67 @@
+/* =========================
+   লগইন চেক
+========================= */
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+/* =========================
+   ইউজার লোড
+========================= */
+let currentPhone = localStorage.getItem("currentUser");
+
+if (!currentPhone) {
+    alert("ইউজার পাওয়া যায়নি!");
+    window.location.href = "login.html";
+}
+
+let userData = JSON.parse(localStorage.getItem(currentPhone));
+
+if (!userData) {
+    alert("ইউজার ডাটা পাওয়া যায়নি!");
+    window.location.href = "login.html";
+}
+
+/* =========================
+   টাকা যোগ ফাংশন
+========================= */
 function addMoney() {
+    let amountInput = document.getElementById("amount");
+    let amount = Number(amountInput.value);
 
-    let amount = document.getElementById("amount").value.trim();
-    let currentUser = localStorage.getItem("currentUser");
-
+    /* ভ্যালিডেশন */
     if (!amount || amount <= 0) {
-        alert("সঠিক টাকা লিখুন!");
+        alert("সঠিক টাকার পরিমাণ লিখুন!");
         return;
     }
 
-    let userData = JSON.parse(localStorage.getItem(currentUser));
+    /* ব্যালেন্স না থাকলে 0 সেট */
+    if (userData.balance === undefined) {
+        userData.balance = 0;
+    }
 
-    // আগের ব্যালেন্স থাকলে নিও, না থাকলে 0
-    let oldBalance = userData.balance ? userData.balance : 0;
+    /* ব্যালেন্স যোগ */
+    userData.balance += amount;
 
-    let newBalance = parseInt(oldBalance) + parseInt(amount);
-    userData.balance = newBalance;
+    /* লেনদেন হিস্টরি না থাকলে তৈরি */
+    if (!userData.transactions) {
+        userData.transactions = [];
+    }
 
-    // ইউজার আপডেট সেভ করা
-    localStorage.setItem(currentUser, JSON.stringify(userData));
-
-    // ট্রান্সাকশন হিস্টোরি সংরক্ষণ
-    let history = JSON.parse(localStorage.getItem(currentUser + "_history")) || [];
-
-    history.push({
-        type: "Add Money",
+    userData.transactions.push({
+        type: "add",
         amount: amount,
         time: new Date().toLocaleString()
     });
 
-    localStorage.setItem(currentUser + "_history", JSON.stringify(history));
+    /* LocalStorage আপডেট */
+    localStorage.setItem(currentPhone, JSON.stringify(userData));
 
-    alert("টাকা Add হয়েছে!");
+    alert("✅ টাকা সফলভাবে যোগ হয়েছে!");
+
+    /* ইনপুট খালি */
+    amountInput.value = "";
+
+    /* হোমে পাঠানো */
     window.location.href = "home.html";
 }

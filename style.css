@@ -1,12 +1,11 @@
-/* Global Styles */
+/* ================= GLOBAL ================= */
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
     background: #eef3ff;
 }
 
-/* ---------- LOGIN & REGISTER PAGE ---------- */
-
+/* ================= LOGIN & REGISTER ================= */
 .container {
     width: 90%;
     max-width: 420px;
@@ -75,9 +74,7 @@ button:hover {
     text-decoration: underline;
 }
 
-/* ---------- HOME PAGE ---------- */
-
-/* Header Section */
+/* ================= HOME PAGE ================= */
 .home-header {
     background: linear-gradient(135deg, #3d5af1, #5a73ec);
     padding: 45px 20px;
@@ -100,7 +97,7 @@ button:hover {
     margin-top: 8px;
 }
 
-/* Top Balance Box */
+/* Balance Box */
 .balance-box {
     width: 90%;
     margin: -25px auto 20px;
@@ -124,7 +121,7 @@ button:hover {
     margin-top: 10px;
 }
 
-/* Main Grid Menu */
+/* Grid Menu */
 .grid-menu {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -135,7 +132,7 @@ button:hover {
 /* Menu Card */
 .menu-card {
     background: #ffffff;
-    padding: 25px 15px;
+    padding: 22px 15px;
     border-radius: 22px;
     text-align: center;
     box-shadow: 0 6px 15px rgba(0,0,0,0.08);
@@ -149,25 +146,55 @@ button:hover {
 
 .menu-card h4 {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: #222;
 }
 
 .menu-card p {
-    font-size: 15px;
+    font-size: 14px;
     color: #777;
     margin-top: 5px;
 }
 
 .menu-card:hover {
-    transform: scale(1.06);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transform: scale(1.05);
 }
 
-/* Logout Special Design */
+/* Logout Card */
 .logout {
     background: #ffebeb !important;
     color: #d00000 !important;
     border: 2px solid #ffbcbc;
-}    
+}
+
+/* ================= WITHDRAW PAGE ================= */
+.withdraw-box {
+    width: 90%;
+    max-width: 420px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* ================= TRANSACTION HISTORY ================= */
+.history-card {
+    background: white;
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.history-card h4 {
+    margin: 0;
+    color: #3d5af1;
+}
+
+.history-card p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #555;
+}

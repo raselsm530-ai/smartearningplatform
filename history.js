@@ -1,8 +1,13 @@
-// লগইন চেক
+/* =========================
+   লগইন চেক
+========================= */
 if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "login.html";
 }
 
+/* =========================
+   ইউজার লোড
+========================= */
 let currentPhone = localStorage.getItem("currentUser");
 let userData = JSON.parse(localStorage.getItem(currentPhone));
 
@@ -11,28 +16,37 @@ if (!userData) {
     window.location.href = "login.html";
 }
 
-// হিস্টোরি লোড
+/* =========================
+   হিস্টরি দেখানো
+========================= */
 let historyList = document.getElementById("historyList");
 
-if (userData.history && userData.history.length > 0) {
+/* যদি কোনো ট্রানজেকশন না থাকে */
+if (!userData.transactions || userData.transactions.length === 0) {
+    historyList.innerHTML = "<p style='text-align:center;'>কোনো লেনদেন পাওয়া যায়নি</p>";
+} else {
 
-    userData.history.forEach(item => {
+    /* সর্বশেষ লেনদেন আগে দেখাবে */
+    userData.transactions.slice().reverse().forEach(tx => {
+
         let div = document.createElement("div");
-        div.classList.add("history-item");
+        div.className = "menu-card";
+
+        let typeText = tx.type === "Withdraw" ? "উত্তোলন" : tx.type;
 
         div.innerHTML = `
-            <p><strong>${item.type}</strong> - ${item.amount} ৳</p>
-            <small>${item.date}</small>
+            <h4>${typeText}</h4>
+            <p>পরিমাণ: ${tx.amount} ৳</p>
+            <p>${tx.date}</p>
         `;
 
         historyList.appendChild(div);
     });
-
-} else {
-    historyList.innerHTML = "<p>কোনো হিস্টোরি পাওয়া যায়নি।</p>";
 }
 
-// হোমে ফেরত
+/* =========================
+   হোমে ফেরত যাওয়া
+========================= */
 function goHome() {
     window.location.href = "home.html";
 }

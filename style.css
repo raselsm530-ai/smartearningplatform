@@ -1,29 +1,43 @@
-/* ================= GLOBAL ================= */
+ /* =========================
+   GLOBAL
+========================= */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
     background: #eef3ff;
+    color: #222;
 }
 
-/* ================= LOGIN & REGISTER ================= */
+/* =========================
+   COMMON CONTAINER
+========================= */
 .container {
-    width: 90%;
+    width: 92%;
     max-width: 420px;
     margin: 40px auto;
     background: #ffffff;
     padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+    border-radius: 22px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
+/* =========================
+   TITLES
+========================= */
 .page-title {
     text-align: center;
-    margin-bottom: 25px;
     font-size: 26px;
     font-weight: 700;
-    color: #333;
+    margin-bottom: 25px;
 }
 
+/* =========================
+   INPUTS
+========================= */
 .input-group {
     margin-bottom: 15px;
 }
@@ -31,50 +45,61 @@ body {
 .input-group input {
     width: 100%;
     padding: 14px;
+    border-radius: 14px;
     border: 1px solid #ccc;
-    border-radius: 12px;
     font-size: 16px;
     outline: none;
 }
 
 .input-group input:focus {
     border-color: #3d5af1;
-    box-shadow: 0 0 6px rgba(61, 90, 241, 0.3);
+    box-shadow: 0 0 6px rgba(61,90,241,0.35);
 }
 
-button, .btn-primary {
+/* =========================
+   BUTTONS
+========================= */
+button,
+.btn-primary {
     width: 100%;
     padding: 14px;
+    border: none;
+    border-radius: 14px;
+    font-size: 18px;
     background: #3d5af1;
     color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 12px;
     cursor: pointer;
-    margin-top: 5px;
 }
 
 button:hover {
-    background: #3249d6;
+    background: #2f48d8;
 }
 
-.signup-link, .login-link {
+/* =========================
+   LINKS
+========================= */
+.signup-link,
+.login-link {
     text-align: center;
     margin-top: 18px;
     font-size: 15px;
 }
 
-.signup-link a, .login-link a {
+.signup-link a,
+.login-link a {
     color: #3d5af1;
     text-decoration: none;
     font-weight: 600;
 }
 
-.signup-link a:hover, .login-link a:hover {
+.signup-link a:hover,
+.login-link a:hover {
     text-decoration: underline;
 }
 
-/* ================= HOME PAGE ================= */
+/* =========================
+   HOME HEADER
+========================= */
 .home-header {
     background: linear-gradient(135deg, #3d5af1, #5a73ec);
     padding: 45px 20px;
@@ -82,30 +107,30 @@ button:hover {
     color: white;
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .home-header h2 {
     margin: 0;
-    font-size: 32px;
-    font-weight: 700;
+    font-size: 30px;
 }
 
 .home-header p {
-    font-size: 16px;
-    opacity: 0.9;
     margin-top: 8px;
+    font-size: 16px;
+    opacity: 0.95;
 }
 
-/* Balance Box */
+/* =========================
+   BALANCE BOX
+========================= */
 .balance-box {
     width: 90%;
-    margin: -25px auto 20px;
-    background: #ffffff;
+    margin: -25px auto 25px;
+    background: white;
     padding: 25px;
     border-radius: 22px;
     text-align: center;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
 .balance-box h3 {
@@ -115,13 +140,14 @@ button:hover {
 }
 
 .balance-box p {
-    font-size: 36px;
+    font-size: 34px;
     font-weight: bold;
-    color: #222;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
-/* Grid Menu */
+/* =========================
+   GRID MENU
+========================= */
 .grid-menu {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -129,9 +155,11 @@ button:hover {
     padding: 20px;
 }
 
-/* Menu Card */
+/* =========================
+   MENU CARD
+========================= */
 .menu-card {
-    background: #ffffff;
+    background: white;
     padding: 22px 15px;
     border-radius: 22px;
     text-align: center;
@@ -141,60 +169,51 @@ button:hover {
 
 .menu-card img {
     width: 55px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .menu-card h4 {
     margin: 0;
     font-size: 18px;
-    font-weight: 600;
-    color: #222;
 }
 
 .menu-card p {
     font-size: 14px;
     color: #777;
-    margin-top: 5px;
 }
 
 .menu-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
-/* Logout Card */
+/* =========================
+   LOGOUT CARD
+========================= */
 .logout {
     background: #ffebeb !important;
     color: #d00000 !important;
     border: 2px solid #ffbcbc;
 }
 
-/* ================= WITHDRAW PAGE ================= */
-.withdraw-box {
-    width: 90%;
-    max-width: 420px;
-    margin: 40px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
-
-/* ================= TRANSACTION HISTORY ================= */
-.history-card {
-    background: white;
-    padding: 18px;
-    border-radius: 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.history-card h4 {
-    margin: 0;
+/* =========================
+   TRANSACTION HISTORY
+========================= */
+.menu-card h4 {
     color: #3d5af1;
 }
 
-.history-card p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: #555;
+.menu-card p {
+    margin: 5px 0;
 }
+
+/* =========================
+   SMALL SCREENS
+========================= */
+@media (max-width: 360px) {
+    .page-title {
+        font-size: 22px;
+    }
+    button {
+        font-size: 16px;
+    }
+}   

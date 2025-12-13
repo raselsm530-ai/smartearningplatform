@@ -1,31 +1,37 @@
 function loginUser() {
+
+    // ইনপুট ভ্যালু নেওয়া
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
 
-    // লোকালস্টোরেজে ফোন নম্বর অনুযায়ী ইউজার আছে কিনা
-    let savedUser = JSON.parse(localStorage.getItem(phone));
+    // খালি চেক
+    if (phone === "" || password === "") {
+        alert("মোবাইল নম্বর ও পাসওয়ার্ড দিন!");
+        return;
+    }
+
+    // লোকালস্টোরেজ থেকে ইউজার আনা
+    let savedUser = localStorage.getItem(phone);
 
     if (!savedUser) {
         alert("এই নম্বরে কোনো অ্যাকাউন্ট নেই! আগে রেজিস্টার করুন।");
         return;
     }
 
-    // পাসওয়ার্ড চেক
-    if (password === savedUser.password) {
+    savedUser = JSON.parse(savedUser);
 
-        // লগইন সফল
-        alert("লগইন সফল! 🎉");
-
-        // বর্তমান ইউজার সেভ
-        localStorage.setItem("currentUser", phone);
-
-        // লগইন স্ট্যাটাস সেভ
-        localStorage.setItem("loggedIn", "true");
-
-        // ⬅⬅ এখানে পরিবর্তন — home.html এ পাঠানো হচ্ছে
-        window.location.href = "home.html";
-
-    } else {
+    // পাসওয়ার্ড মিলানো
+    if (password !== savedUser.password) {
         alert("পাসওয়ার্ড ভুল!");
+        return;
     }
+
+    // ✅ লগইন সফল
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("currentUser", phone);
+
+    alert("লগইন সফল! 🎉");
+
+    // হোম পেজে পাঠানো
+    window.location.href = "home.html";
 }

@@ -2,29 +2,30 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>প্রোফাইল</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <div class="container">
+<div class="container">
+    <h2 class="page-title">প্রোফাইল</h2>
 
-        <h2>প্রোফাইল</h2>
-
-        <div class="info-box">
-            <p><strong>নাম:</strong> <span id="userName"></span></p>
-            <p><strong>মোবাইল:</strong> <span id="userPhone"></span></p>
-            <p><strong>ব্যালেন্স:</strong> <span id="userBalance"></span></p>
-            <p><strong>ইমেইল:</strong> <span id="userEmail"></span></p>
-        </div>
-
-        <button onclick="goHome()">হোমে ফিরে যান</button>
-
+    <div class="input-group">
+        <input type="text" id="profilePhone" disabled>
     </div>
 
-    <script src="profile.js"></script>
+    <div class="input-group">
+        <input type="text" id="profileBalance" disabled>
+    </div>
 
+    <div class="input-group">
+        <input type="text" id="profilePin" disabled>
+    </div>
+
+    <button onclick="goHome()">হোমে ফিরে যান</button>
+</div>
+
+<script src="profile.js"></script>
 </body>
 </html>

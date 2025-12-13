@@ -27,11 +27,12 @@ function depositMoney() {
         return;
     }
 
-    /* ব্যালেন্স আপডেট */
+    /* ব্যালেন্স না থাকলে 0 ধরবে */
     if (!userData.balance) {
         userData.balance = 0;
     }
 
+    /* ব্যালেন্স যোগ */
     userData.balance += amount;
 
     /* ট্রানজেকশন হিস্টরি */
@@ -52,5 +53,6 @@ function depositMoney() {
 
     document.getElementById("depositAmount").value = "";
 
+    /* হোমে পাঠানো */
     window.location.href = "home.html";
 }

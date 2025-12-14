@@ -3,34 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
+
     <h2 class="page-title">রেজিস্টার</h2>
 
-    <div class="input-group">
-        <input type="text" id="phone" placeholder="মোবাইল নম্বর">
-    </div>
+    <form id="registerForm" onsubmit="registerUser(); return false;">
 
-    <div class="input-group">
-        <input type="password" id="password" placeholder="পাসওয়ার্ড">
-    </div>
+        <div class="input-group">
+            <input type="text" id="phone" placeholder="মোবাইল নম্বর" required>
+        </div>
 
-    <div class="input-group">
-        <input type="password" id="confirmPassword" placeholder="কনফার্ম পাসওয়ার্ড">
-    </div>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
+        </div>
 
-    <div class="input-group">
-        <input type="number" id="withdrawPin" placeholder="উইথড্র পিন (৪ সংখ্যা)">
-    </div>
+        <div class="input-group">
+            <input type="password" id="confirmPassword" placeholder="কনফার্ম পাসওয়ার্ড" required>
+        </div>
 
-    <button onclick="registerUser()">রেজিস্টার</button>
+        <div class="input-group">
+            <input type="number" id="withdrawPin" placeholder="উইথড্র পিন (৪ সংখ্যা)" required>
+        </div>
+
+        <!-- 🔥 এইটা আগের HTML-এ ছিল না -->
+        <div class="input-group">
+            <input type="text" id="refCode" placeholder="রেফার কোড (ঐচ্ছিক)">
+        </div>
+
+        <button type="submit" class="btn-primary">রেজিস্টার</button>
+
+    </form>
 
     <div class="login-link">
+        ইতিমধ্যে একাউন্ট আছে?
         <a href="login.html">লগইন</a>
     </div>
+
 </div>
 
 <script src="register.js"></script>

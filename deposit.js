@@ -1,33 +1,53 @@
+/* =========================
+   লগইন চেক
+========================= */
 if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "login.html";
 }
 
+/* =========================
+   ইউজার লোড
+========================= */
 let currentPhone = localStorage.getItem("currentUser");
 let userData = JSON.parse(localStorage.getItem(currentPhone));
 
 if (!userData) {
-    alert("ইউজার পাওয়া যায়নি!");
+    alert("ইউজার পাওয়া যায়নি! আবার লগইন করুন।");
     window.location.href = "login.html";
 }
 
+/* =========================
+   Deposit Function
+========================= */
 function depositMoney() {
+
     let amount = parseInt(document.getElementById("depositAmount").value);
     let method = document.getElementById("paymentMethod").value;
     let trxId = document.getElementById("trxId").value.trim();
 
     if (!amount || amount <= 0) {
-        alert("সঠিক এমাউন্ট লিখুন");
-        return;
-    }
-    if (!method) {
-        alert("পেমেন্ট মেথড নির্বাচন করুন");
-        return;
-    }
-    if (!trxId) {
-        alert("Transaction ID দিন");
+        alert("সঠিক ডিপোজিট এমাউন্ট লিখুন!");
         return;
     }
 
+    if (!method) {
+        alert("পেমেন্ট মেথড নির্বাচন করুন!");
+        return;
+    }
+
+    if (!trxId) {
+        alert("Transaction ID দিন!");
+        return;
+    }
+
+    /* ব্যালেন্স আপডেট */
+    if (!userData.balance) {
+        userData.balance = 0;
+    }
+
+    userData.balance += amount;
+
+    /* ট্রানজেকশন হিস্টরি */
     if (!userData.transactions) {
         userData.transactions = [];
     }
@@ -37,13 +57,19 @@ function depositMoney() {
         amount: amount,
         method: method,
         trxId: trxId,
-        status: "Pending",
         date: new Date().toLocaleString()
     });
 
+    /* লোকালস্টোরেজে সেভ */
     localStorage.setItem(currentPhone, JSON.stringify(userData));
 
-    alert("ডিপোজিট রিকুয়েস্ট পাঠানো হয়েছে ⏳ (Pending)");
+    alert("ডিপোজিট সফল হয়েছে ✅");
 
+    /* ইনপুট ক্লিয়ার */
+    document.getElementById("depositAmount").value = "";
+    document.getElementById("paymentMethod").value = "";
+    document.getElementById("trxId").value = "";
+
+    /* হোমে পাঠানো */
     window.location.href = "home.html";
 }

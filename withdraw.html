@@ -2,36 +2,35 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>Withdraw</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>উত্তোলন</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <h2 class="page-title">Withdraw</h2>
+    <div class="container">
 
-    <div class="input-group">
-        <input type="number" id="withdrawAmount" placeholder="Amount">
-    </div><div class="input-group">
-    <input type="number" id="withdrawAmount" placeholder="উত্তোলন এমাউন্ট">
-</div>
+        <h2 class="page-title">উইথড্র করুন</h2>
 
-<!-- ✅ এই অংশটা যোগ করো -->
-<div class="input-group">
-    <input type="number" id="tipAmount" placeholder="অতিরিক্ত টিপ (ঐচ্ছিক)">
-</div>
+        <div class="input-group">
+            <input type="number" id="withdrawAmount" placeholder="উত্তোলন এমাউন্ট">
+        </div>
 
-<div class="input-group">
-    <input type="password" id="withdrawPin" placeholder="উত্তোলন পিন">
-</div>
+        <div class="input-group">
+            <input type="password" id="withdrawPin" placeholder="উত্তোলন পিন (৪ সংখ্যা)">
+        </div>
 
-    <div class="input-group">
-        <input type="password" id="withdrawPin" placeholder="PIN">
+        <button onclick="withdrawMoney()" class="btn-primary">
+            উইথড্র করুন
+        </button>
+
+        <div class="login-link">
+            <a href="home.html">← হোমে ফিরে যান</a>
+        </div>
+
     </div>
 
-    <button onclick="withdrawMoney()">Withdraw</button>
-</div>
-
-<script src="withdraw.js"></script>
+    <script src="withdraw.js"></script>
 </body>
 </html>

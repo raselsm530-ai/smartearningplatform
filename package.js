@@ -1,13 +1,32 @@
-/* লগইন চেক */
+/* =========================
+   লগইন চেক
+========================= */
 if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "login.html";
 }
 
+/* =========================
+   ইউজার লোড
+========================= */
 let currentPhone = localStorage.getItem("currentUser");
 let userData = JSON.parse(localStorage.getItem(currentPhone));
 
-function buyPackage(price, name) {
+if (!userData) {
+    alert("ইউজার পাওয়া যায়নি! আবার লগইন করুন।");
+    window.location.href = "login.html";
+}
 
+/* =========================
+   Buy Package Function
+========================= */
+function buyPackage(price) {
+
+    /* ব্যালেন্স না থাকলে 0 */
+    if (!userData.balance) {
+        userData.balance = 0;
+    }
+
+    /* ব্যালেন্স চেক */
     if (userData.balance < price) {
         alert("পর্যাপ্ত ব্যালেন্স নেই!");
         return;
@@ -22,7 +41,6 @@ function buyPackage(price, name) {
     }
 
     userData.packages.push({
-        name: name,
         price: price,
         date: new Date().toLocaleString()
     });
@@ -38,9 +56,10 @@ function buyPackage(price, name) {
         date: new Date().toLocaleString()
     });
 
+    /* লোকালস্টোরেজে সেভ */
     localStorage.setItem(currentPhone, JSON.stringify(userData));
 
-    alert(name + " প্যাকেজ সফলভাবে কেনা হয়েছে 🎉");
+    alert("প্যাকেজ সফলভাবে কেনা হয়েছে 🎉");
 
     window.location.href = "home.html";
 }

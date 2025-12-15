@@ -20,25 +20,19 @@ if (!userData) {
    Deposit Function
 ========================= */
 function depositMoney() {
-
     let amount = parseInt(document.getElementById("depositAmount").value);
-    let trxId = document.getElementById("trxId").value.trim();
 
     if (!amount || amount <= 0) {
         alert("সঠিক ডিপোজিট এমাউন্ট লিখুন!");
         return;
     }
 
-    if (!trxId) {
-        alert("Transaction ID দিন!");
-        return;
-    }
-
-    /* ব্যালেন্স সেট */
+    /* আগের ব্যালেন্স না থাকলে 0 */
     if (!userData.balance) {
         userData.balance = 0;
     }
 
+    /* ব্যালেন্স আপডেট */
     userData.balance += amount;
 
     /* ট্রানজেকশন হিস্টরি */
@@ -49,19 +43,15 @@ function depositMoney() {
     userData.transactions.push({
         type: "Deposit",
         amount: amount,
-        trxId: trxId,
         date: new Date().toLocaleString()
     });
 
-    /* লোকালস্টোরেজে সেভ */
+    /* সেভ */
     localStorage.setItem(currentPhone, JSON.stringify(userData));
 
     alert("ডিপোজিট সফল হয়েছে ✅");
 
-    /* ইনপুট ক্লিয়ার */
     document.getElementById("depositAmount").value = "";
-    document.getElementById("trxId").value = "";
 
-    /* হোমে পাঠানো */
     window.location.href = "home.html";
 }

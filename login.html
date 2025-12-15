@@ -13,18 +13,20 @@
 
     <h2 class="page-title">লগইন</h2>
 
-    <div class="input-group">
-        <input type="text" id="phone" placeholder="মোবাইল নম্বর" required>
-    </div>
+    <!-- ⚠️ form আছে কিন্তু submit আটকানো হবে -->
+    <form id="loginForm">
 
-    <div class="input-group">
-        <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
-    </div>
+        <div class="input-group">
+            <input type="text" id="phone" placeholder="মোবাইল নম্বর" required>
+        </div>
 
-    <!-- ⚠️ type="button" খুব গুরুত্বপূর্ণ -->
-    <button type="button" class="btn-primary" onclick="loginUser()">
-        লগইন
-    </button>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
+        </div>
+
+        <button type="submit" class="btn-primary">লগইন</button>
+
+    </form>
 
     <div class="signup-link">
         একাউন্ট নেই? <a href="register.html">রেজিস্টার করুন</a>

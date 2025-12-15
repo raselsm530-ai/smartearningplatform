@@ -16,7 +16,16 @@ if (!userData) {
     window.location.href = "login.html";
 }
 
-/* =========================
+/// ডিপোজিট নাম্বার (এখানে তোমার নাম্বার বসাও)
+const DEPOSIT_NUMBER = "01985168229";
+
+// লগইন চেক
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+// নাম্বার দেখানো
+document.getElementById("depositNumber").innerText = DEPOSIT_NUMBER; =========================
    Deposit Function
 ========================= */
 function depositMoney() {

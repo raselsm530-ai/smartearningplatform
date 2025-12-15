@@ -12,22 +12,28 @@ let currentPhone = localStorage.getItem("currentUser");
 let userData = JSON.parse(localStorage.getItem(currentPhone));
 
 if (!userData) {
-    alert("ইউজার পাওয়া যায়নি!");
+    alert("ইউজার পাওয়া যায়নি! আবার লগইন করুন।");
     window.location.href = "login.html";
 }
 
 /* =========================
    Deposit Function
 ========================= */
-function depositMoney() {
+function submitDeposit() {
     let amount = parseInt(document.getElementById("depositAmount").value);
+    let trxId = document.getElementById("trxId").value.trim();
 
     if (!amount || amount <= 0) {
         alert("সঠিক ডিপোজিট এমাউন্ট লিখুন!");
         return;
     }
 
-    /* ব্যালেন্স না থাকলে 0 সেট */
+    if (!trxId) {
+        alert("Transaction ID দিন!");
+        return;
+    }
+
+    /* ব্যালেন্স সেট না থাকলে */
     if (!userData.balance) {
         userData.balance = 0;
     }
@@ -43,15 +49,18 @@ function depositMoney() {
     userData.transactions.push({
         type: "Deposit",
         amount: amount,
+        trxId: trxId,
         date: new Date().toLocaleString()
     });
 
-    /* লোকালস্টোরেজে সেভ (এই লাইনটা সবচেয়ে জরুরি) */
+    /* লোকালস্টোরেজে সেভ */
     localStorage.setItem(currentPhone, JSON.stringify(userData));
 
     alert("ডিপোজিট সফল হয়েছে ✅");
 
+    /* ইনপুট ক্লিয়ার */
     document.getElementById("depositAmount").value = "";
+    document.getElementById("trxId").value = "";
 
     /* হোমে পাঠানো */
     window.location.href = "home.html";

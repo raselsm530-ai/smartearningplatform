@@ -3,6 +3,7 @@ if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "login.html";
 }
 
+/* ইউজার লোড */
 let currentPhone = localStorage.getItem("currentUser");
 let userData = JSON.parse(localStorage.getItem(currentPhone));
 
@@ -12,16 +13,13 @@ if (!userData) {
 }
 
 /* ডাটা দেখানো */
-document.getElementById("profilePhone").innerText =
-    "মোবাইল: " + userData.phone;
+document.getElementById("userPhone").innerText = userData.phone;
+document.getElementById("userBalance").innerText =
+    (userData.balance || 0) + " ৳";
 
-document.getElementById("profileBalance").innerText =
-    "ব্যালেন্স: " + (userData.balance || 0) + " ৳";
-
-document.getElementById("profilePin").innerText =
-    "উত্তোলন পিন: " + userData.withdrawPin;
-
-/* হোম */
-function goHome() {
-    window.location.href = "home.html";
+/* লগআউট */
+function logoutUser() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
 }

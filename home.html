@@ -1,33 +1,10 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>হোম</title>
+<div class="grid-menu">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="home.css">
-</head>
-<body>
-
-<!-- Header -->
-<div class="home-header">
-    <h2 id="welcomeText">স্বাগতম</h2>
-</div>
-
-<!-- Balance -->
-<div class="balance-box">
-    <h3>বর্তমান ব্যালেন্স</h3>
-    <p id="balanceText">0 ৳</p>
-</div>
-
-<!-- Menu -->
-<div class="grid-menu"><div class="menu-card" onclick="location.href='wallet.html'">
-    <h4>ওয়ালেট</h4>
-    <p>ব্যালেন্স ও ডিপোজিট</p>
-</div>
-
-    <!-- Deposit অপশন ইচ্ছাকৃতভাবে বাদ -->
+    <!-- Wallet -->
+    <div class="menu-card" onclick="location.href='wallet.html'">
+        <h4>ওয়ালেট</h4>
+        <p>ডিপোজিট করুন</p>
+    </div>
 
     <!-- Package -->
     <div class="menu-card" onclick="location.href='package.html'">
@@ -60,7 +37,3 @@
     </div>
 
 </div>
-
-<script src="home.js"></script>
-</body>
-</html>

@@ -2,13 +2,17 @@ if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "login.html";
 }
 
-let phone = localStorage.getItem("currentUser");
-let user = JSON.parse(localStorage.getItem(phone));
+let currentPhone = localStorage.getItem("currentUser");
+let userData = JSON.parse(localStorage.getItem(currentPhone));
 
-welcomeText.innerText = "স্বাগতম, " + user.phone;
-balanceText.innerText = user.balance + " ৳";
+document.getElementById("welcomeText").innerText =
+    "স্বাগতম, " + userData.phone;
+
+document.getElementById("balanceText").innerText =
+    userData.balance + " ৳";
 
 function logoutUser() {
-    localStorage.clear();
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("currentUser");
     window.location.href = "login.html";
 }

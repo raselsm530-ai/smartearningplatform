@@ -2,24 +2,21 @@ function loginUser() {
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
 
-    let userData = localStorage.getItem(phone);
+    let savedUser = JSON.parse(localStorage.getItem(phone));
 
-    if (!userData) {
-        alert("এই নম্বরে কোনো অ্যাকাউন্ট নেই");
+    if (!savedUser) {
+        alert("এই নম্বরে কোনো অ্যাকাউন্ট নেই! আগে রেজিস্টার করুন।");
         return;
     }
 
-    let user = JSON.parse(userData);
+    if (password === savedUser.password) {
+        alert("লগইন সফল! 🎉");
 
-    if (user.password !== password) {
-        alert("পাসওয়ার্ড ভুল");
-        return;
+        localStorage.setItem("currentUser", phone);
+        localStorage.setItem("loggedIn", "true");
+
+        window.location.href = "home.html";
+    } else {
+        alert("পাসওয়ার্ড ভুল!");
     }
-
-    // ✅ লগইন স্টেট
-    localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("currentUser", phone);
-
-    alert("লগইন সফল 🎉");
-    window.location.href = "dashboard.html";
 }

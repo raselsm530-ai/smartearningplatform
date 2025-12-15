@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wallet</title>
+    <meta charset="UTF-8">
+    <title>ডিপোজিট</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h2>Your Wallet</h2>
+<div class="container">
+    <h2 class="page-title">টাকা যোগ করুন</h2>
 
-        <div class="wallet-box">
-            <p><strong>Available Balance:</strong></p>
-            <h1 id="walletBalance">0</h1>
-        </div>
-
-        <div class="actions">
-            <a href="deposit.html" class="btn">Deposit</a>
-            <a href="withdraw.html" class="btn">Withdraw</a>
-            <a href="dashboard.html" class="btn">Back to Dashboard</a>
-        </div>
-
+    <div class="input-group">
+        <input type="number" id="depositAmount" placeholder="এমাউন্ট লিখুন">
     </div>
 
-    <script src="wallet.js"></script>
+    <div class="input-group">
+        <select id="paymentMethod">
+            <option value="">পেমেন্ট মেথড নির্বাচন করুন</option>
+            <option value="Bkash">বিকাশ</option>
+            <option value="Nagad">নগদ</option>
+            <option value="Rocket">রকেট</option>
+        </select>
+    </div>
+
+    <button onclick="depositMoney()">ডিপোজিট করুন</button>
+</div>
+
+<script src="wallet.js"></script>
 </body>
 </html>

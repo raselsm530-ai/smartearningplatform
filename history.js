@@ -5,22 +5,32 @@ if (localStorage.getItem("loggedIn") !== "true") {
 
 let currentPhone = localStorage.getItem("currentUser");
 let userData = JSON.parse(localStorage.getItem(currentPhone));
-let historyDiv = document.getElementById("historyList");
 
-if (!userData || !userData.transactions || userData.transactions.length === 0) {
-    historyDiv.innerHTML = "<p>কোনো উত্তোলন হিস্টরি নেই</p>";
+if (!userData) {
+    alert("ইউজার পাওয়া যায়নি!");
+    window.location.href = "login.html";
+}
+
+let historyBox = document.getElementById("historyList");
+
+/* হিস্টরি না থাকলে */
+if (!userData.transactions || userData.transactions.length === 0) {
+    historyBox.innerHTML = "<p>এখনো কোনো লেনদেন হয়নি</p>";
 } else {
-    userData.transactions
-        .filter(tx => tx.type === "Withdraw")
-        .reverse()
-        .forEach(tx => {
-            let div = document.createElement("div");
-            div.className = "menu-card";
-            div.innerHTML = `
-                <h4>উত্তোলন</h4>
-                <p>পরিমাণ: ${tx.amount} ৳</p>
-                <p>${tx.date}</p>
-            `;
-            historyDiv.appendChild(div);
-        });
+
+    let html = "";
+
+    userData.transactions.reverse().forEach(item => {
+
+        html += `
+            <div class="menu-card">
+                <h4>${item.type}</h4>
+                <p>এমাউন্ট: ${item.amount} ৳</p>
+                ${item.details ? `<p>${item.details}</p>` : ""}
+                <small>${item.date}</small>
+            </div>
+        `;
+    });
+
+    historyBox.innerHTML = html;
 }

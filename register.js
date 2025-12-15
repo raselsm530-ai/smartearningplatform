@@ -1,9 +1,11 @@
-function registerUser() {
+document.getElementById("registerForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // ⭐️ খুব গুরুত্বপূর্ণ
+
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
     let confirmPassword = document.getElementById("confirmPassword").value.trim();
     let withdrawPin = document.getElementById("withdrawPin").value.trim();
-    let inviteCode = document.getElementById("inviteCode").value.trim();
+    let refCode = document.getElementById("inviteCode").value.trim();
 
     if (phone.length !== 11 || !phone.startsWith("01")) {
         alert("সঠিক মোবাইল নম্বর দিন");
@@ -20,9 +22,8 @@ function registerUser() {
         return;
     }
 
-    // 🔴 IMPORTANT CHECK
     if (localStorage.getItem(phone)) {
-        alert("এই নম্বরে আগেই অ্যাকাউন্ট আছে");
+        alert("এই নম্বরে আগেই একাউন্ট আছে");
         return;
     }
 
@@ -30,14 +31,13 @@ function registerUser() {
         phone: phone,
         password: password,
         withdrawPin: withdrawPin,
-        invite: inviteCode || "NO-REF",
+        ref: refCode || "NO-REF",
         balance: 0,
         transactions: []
     };
 
-    // ✅ এখানেই সেভ হচ্ছে
     localStorage.setItem(phone, JSON.stringify(user));
 
-    alert("রেজিস্ট্রেশন সফল");
+    alert("রেজিস্ট্রেশন সফল 🎉 এখন লগইন করুন");
     window.location.href = "login.html";
-}
+});

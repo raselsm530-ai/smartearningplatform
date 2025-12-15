@@ -1,19 +1,14 @@
-if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "login.html";
-}
-
-let currentPhone = localStorage.getItem("currentUser");
-let userData = JSON.parse(localStorage.getItem(currentPhone));
-
-function depositMoney() {
-    let amount = parseInt(document.getElementById("depositAmount").value);
+function updateNumber() {
     let method = document.getElementById("paymentMethod").value;
+    let numberText = document.getElementById("paymentNumber");
 
-    if (!amount || amount <= 0) {
-        alert("সঠিক এমাউন্ট দিন");
-        return;
+    if (method === "Bkash") {
+        numberText.innerText = "বিকাশ: 01XXXXXXXXX";
+    } else if (method === "Nagad") {
+        numberText.innerText = "নগদ: 01YYYYYYYYY";
+    } else if (method === "Rocket") {
+        numberText.innerText = "রকেট: 01ZZZZZZZZZ";
+    } else {
+        numberText.innerText = "মেথড নির্বাচন করুন";
     }
-
-    if (!method) {
-        alert("পেমেন্ট মেথড নির্বাচন করুন");
-        return
+}

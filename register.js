@@ -1,50 +1,43 @@
-document.getElementById("registerForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
+function registerUser() {
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
     let confirmPassword = document.getElementById("confirmPassword").value.trim();
     let withdrawPin = document.getElementById("withdrawPin").value.trim();
     let inviteCode = document.getElementById("inviteCode").value.trim();
 
-    if (!phone || phone.length < 10) {
-        alert("সঠিক মোবাইল নাম্বার দিন");
-        return;
-    }
-
-    if (!password || password.length < 4) {
-        alert("পাসওয়ার্ড কমপক্ষে ৪ অক্ষরের হতে হবে");
+    if (phone.length !== 11 || !phone.startsWith("01")) {
+        alert("সঠিক মোবাইল নম্বর দিন");
         return;
     }
 
     if (password !== confirmPassword) {
-        alert("পাসওয়ার্ড মিলছে না");
+        alert("পাসওয়ার্ড মিলছে না");
         return;
     }
 
-    if (!withdrawPin || withdrawPin.length !== 4) {
-        alert("৪ সংখ্যার উত্তোলন পিন দিন");
+    if (withdrawPin.length !== 4) {
+        alert("৪ সংখ্যার পিন দিন");
         return;
     }
 
-    // 🔴 সবচেয়ে গুরুত্বপূর্ণ লাইন
+    // 🔴 IMPORTANT CHECK
     if (localStorage.getItem(phone)) {
-        alert("এই নম্বরে আগেই একাউন্ট আছে");
+        alert("এই নম্বরে আগেই অ্যাকাউন্ট আছে");
         return;
     }
 
-    let userData = {
+    let user = {
         phone: phone,
         password: password,
         withdrawPin: withdrawPin,
+        invite: inviteCode || "NO-REF",
         balance: 0,
         transactions: []
     };
 
-    // ✅ ফোন নাম্বারকেই key হিসেবে সেভ
-    localStorage.setItem(phone, JSON.stringify(userData));
+    // ✅ এখানেই সেভ হচ্ছে
+    localStorage.setItem(phone, JSON.stringify(user));
 
-    alert("রেজিস্ট্রেশন সফল ✅ এখন লগইন করুন");
-
+    alert("রেজিস্ট্রেশন সফল");
     window.location.href = "login.html";
-});
+}

@@ -113,4 +113,19 @@ button {
 
 .deposit-info h3 {
     color: #3d5af1;
+}/* ===== FULL PAGE FIX (Wallet / Deposit / History) ===== */
+.full-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    background: #eef3ff;
+    box-sizing: border-box;
+}
+
+.full-page .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 0;
+    box-shadow: none;
 }

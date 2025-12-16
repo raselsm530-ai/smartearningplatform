@@ -60,10 +60,13 @@ body.home {
 body:not(.home) {
     background: linear-gradient(135deg, #667eea, #764ba2);
 }
-
-.container {
-    width: 90%;
-    max-width: 420px;
+    .container {
+    width: 100%;
+    min-height: 100vh;
+    background: #f5f7ff;
+    padding: 20px;
+    box-sizing: border-box;
+}
     margin: 60px auto;
     background: #ffffff;
     padding: 25px;

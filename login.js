@@ -1,15 +1,17 @@
 document.getElementById("loginForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // ⛔ ফর্ম reload বন্ধ
+    e.preventDefault(); // ফর্ম reload বন্ধ
 
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
 
-    let savedUser = JSON.parse(localStorage.getItem(phone));
+    let savedUser = localStorage.getItem(phone);
 
     if (!savedUser) {
         alert("এই নম্বরে কোনো অ্যাকাউন্ট নেই!");
         return;
     }
+
+    savedUser = JSON.parse(savedUser);
 
     if (password !== savedUser.password) {
         alert("পাসওয়ার্ড ভুল!");

@@ -1,22 +1,29 @@
-// ===== FIXED PAYMENT NUMBERS =====
+// ===== PAYMENT NUMBERS =====
 const paymentNumbers = {
     Bkash: "01797632229",
     Nagad: "01797632229",
     Rocket: "01797632229"
 };
 
-// ===== UPDATE NUMBER ON METHOD CHANGE =====
-function updateNumber() {
-    const method = document.getElementById("paymentMethod").value;
+// ===== DOM READY =====
+document.addEventListener("DOMContentLoaded", () => {
+    const methodSelect = document.getElementById("paymentMethod");
     const numberBox = document.getElementById("paymentNumber");
+    const depositBtn = document.getElementById("depositBtn");
 
-    if (!method) {
-        numberBox.innerText = "মেথড নির্বাচন করুন";
-        return;
+    if (methodSelect) {
+        methodSelect.addEventListener("change", () => {
+            const method = methodSelect.value;
+            numberBox.innerText = method
+                ? paymentNumbers[method]
+                : "মেথড নির্বাচন করুন";
+        });
     }
 
-    numberBox.innerText = paymentNumbers[method];
-}
+    if (depositBtn) {
+        depositBtn.addEventListener("click", depositMoney);
+    }
+});
 
 // ===== DEPOSIT FUNCTION =====
 function depositMoney() {
@@ -34,7 +41,7 @@ function depositMoney() {
     }
 
     alert(
-        "ডিপোজিট রিকুয়েস্ট নেওয়া হয়েছে ✅\n\n" +
+        "✅ ডিপোজিট রিকুয়েস্ট সফল\n\n" +
         "মেথড: " + method + "\n" +
         "নাম্বার: " + paymentNumbers[method] + "\n" +
         "এমাউন্ট: " + amount + " টাকা"

@@ -1,24 +1,32 @@
-// User check
+// ===== Home Page Balance Show =====
+
+// login করা user
 let user = localStorage.getItem("currentUser");
 
+// যদি login না থাকে
 if (!user) {
-    // যদি লগইন না থাকে
-    window.location.href = "login.html";
+    location.href = "login.html";
 }
 
-// Welcome text
-document.getElementById("welcomeText").innerText =
-    "স্বাগতম, " + user;
+// balance key
+let balanceKey = "balance_" + user;
 
-// Balance show
-let balance = localStorage.getItem("balance_" + user);
-balance = balance ? parseFloat(balance) : 0;
+// balance read
+let balance = localStorage.getItem(balanceKey);
 
-document.getElementById("balance").innerText =
-    balance + " ৳";
+// null হলে 0 দেখাবে
+if (balance === null) {
+    balance = 0;
+}
 
-// Logout
+// UI তে show
+document.getElementById("balance").innerText = balance + " ৳";
+
+// welcome text
+document.getElementById("welcomeText").innerText = "স্বাগতম, " + user;
+
+// logout
 function logoutUser() {
     localStorage.removeItem("currentUser");
-    window.location.href = "login.html";
+    location.href = "login.html";
 }

@@ -8,8 +8,31 @@
 /* ================= GLOBAL ================= */
 html, body {
     width: 100%;
-    min-height: 100vh;
-    font-family: "Poppins", sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* wallet / deposit page */
+.wallet-page {
+    background: #eef2ff;
+}
+
+/* 🔥 MAIN FIX */
+.container {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f5f7ff;
+}
+
+/* mobile safe spacing */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 }
 
 /* ================= HOME PAGE ================= */

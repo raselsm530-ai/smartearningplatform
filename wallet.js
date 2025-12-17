@@ -1,49 +1,29 @@
-// ===== PAYMENT NUMBERS =====
-const paymentNumbers = {
-    Bkash: "01797632229",
-    Nagad: "01797632229",
-    Rocket: "01797632229"
-};
+function submitDeposit() {
+    let amount = document.getElementById("amount").value;
+    let method = document.getElementById("method").value;
+    let trxid = document.getElementById("trxid").value;
 
-// ===== DOM READY =====
-document.addEventListener("DOMContentLoaded", () => {
-    const methodSelect = document.getElementById("paymentMethod");
-    const numberBox = document.getElementById("paymentNumber");
-    const depositBtn = document.getElementById("depositBtn");
-
-    if (methodSelect) {
-        methodSelect.addEventListener("change", () => {
-            const method = methodSelect.value;
-            numberBox.innerText = method
-                ? paymentNumbers[method]
-                : "মেথড নির্বাচন করুন";
-        });
-    }
-
-    if (depositBtn) {
-        depositBtn.addEventListener("click", depositMoney);
-    }
-});
-
-// ===== DEPOSIT FUNCTION =====
-function depositMoney() {
-    const amount = Number(document.getElementById("depositAmount").value);
-    const method = document.getElementById("paymentMethod").value;
-
-    if (!amount || amount <= 0) {
-        alert("সঠিক এমাউন্ট লিখুন");
+    if (!amount || !method || !trxid) {
+        alert("সব তথ্য পূরণ করুন");
         return;
     }
 
-    if (!method) {
-        alert("পেমেন্ট মেথড নির্বাচন করুন");
-        return;
-    }
+    let user = localStorage.getItem("currentUser");
+    let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
 
-    alert(
-        "✅ ডিপোজিট রিকুয়েস্ট সফল\n\n" +
-        "মেথড: " + method + "\n" +
-        "নাম্বার: " + paymentNumbers[method] + "\n" +
-        "এমাউন্ট: " + amount + " টাকা"
-    );
+    deposits.push({
+        user: user,
+        amount: Number(amount),
+        method: method,
+        trxid: trxid,
+        status: "Pending",
+        time: new Date().toLocaleString()
+    });
+
+    localStorage.setItem("deposits", JSON.stringify(deposits));
+
+    alert("✅ ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে\n(Admin যাচাই করবে)");
+
+    document.getElementById("amount").value = "";
+    document.getElementById("trxid").value = "";
 }

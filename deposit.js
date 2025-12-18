@@ -14,13 +14,13 @@ function depositMoney() {
         user: user,
         amount: Number(amount),
         method: method,
-        time: new Date().toLocaleString()   // FIXED
+        time: new Date().toLocaleString() // 👍 Perfect
     });
 
     localStorage.setItem("pendingDeposits", JSON.stringify(deposits));
 
     alert("ডিপোজিট রিকুয়েস্ট পাঠানো হয়েছে");
-    
+
     document.getElementById("depositAmount").value = "";
     document.getElementById("paymentMethod").value = "";
 }

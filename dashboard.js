@@ -16,14 +16,23 @@ if (!user) {
     window.location.href = "login.html";
 }
 
-// ব্যালেন্স লোড
-let balances = JSON.parse(localStorage.getItem("balances")) || {};
+// ব্যালেন্স লোড করা (core balance source)
+let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
 
-let balance = balances[currentUser] || 0;
+// Approved deposit amount sum
+let totalDeposit = deposits
+    .filter(d => d.user === currentUser && d.status === "Approved")
+    .reduce((sum, d) => sum + Number(d.amount), 0);
+
+// user এর default balance (যদি থাকে)
+let baseBalance = user.balance ? Number(user.balance) : 0;
+
+// Final balance = base balance + approved deposit sum
+let finalBalance = baseBalance + totalDeposit;
 
 // UI তে দেখানো
 document.getElementById("welcomeText").innerText = "স্বাগতম, " + user.phone;
-document.getElementById("balance").innerText = balance + " ৳";
+document.getElementById("balance").innerText = finalBalance + " ৳";
 
 // logout
 function logoutUser() {

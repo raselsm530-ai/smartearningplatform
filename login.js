@@ -1,24 +1,23 @@
 document.getElementById("loginForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // ফর্ম reload বন্ধ
+    e.preventDefault();
 
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
 
-    let savedUser = localStorage.getItem(phone);
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    if (!savedUser) {
+    let user = users.find(u => u.phone === phone);
+
+    if (!user) {
         alert("এই নম্বরে কোনো অ্যাকাউন্ট নেই!");
         return;
     }
 
-    savedUser = JSON.parse(savedUser);
-
-    if (password !== savedUser.password) {
+    if (user.password !== password) {
         alert("পাসওয়ার্ড ভুল!");
         return;
     }
 
-    // ✅ লগইন সফল
     localStorage.setItem("loggedIn", "true");
     localStorage.setItem("currentUser", phone);
 

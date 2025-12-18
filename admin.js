@@ -1,10 +1,7 @@
-// load pending deposits
 let list = document.getElementById("depositList");
 
-// get pending deposits
 let deposits = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
 
-// show deposits
 list.innerHTML = "";
 
 deposits.forEach((d, i) => {
@@ -13,10 +10,10 @@ deposits.forEach((d, i) => {
         div.className = "info-box";
 
         div.innerHTML = `
-            <p><b>User:</b> ${d.user}</p>
-            <p><b>Amount:</b> ${d.amount} ৳</p>
-            <p><b>Method:</b> ${d.method}</p>
-            <p><b>Date:</b> ${d.date}</p>
+            <p>User: ${d.user}</p>
+            <p>Amount: ${d.amount} ৳</p>
+            <p>Method: ${d.method}</p>
+            <p>Date: ${d.date}</p>
             <button onclick="approve(${i})">Approve</button>
         `;
 
@@ -24,28 +21,26 @@ deposits.forEach((d, i) => {
     }
 });
 
-
-// Approve Function
 function approve(index) {
     let d = deposits[index];
 
-    // get users array
+    // all users
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // find that specific user
-    let userIndex = users.findIndex(u => u.number === d.user);
+    // find user index
+    let userIndex = users.findIndex(u => u.phone === d.user);
 
     if (userIndex !== -1) {
-        users[userIndex].balance = (users[userIndex].balance || 0) + Number(d.amount);
-
-        localStorage.setItem("users", JSON.stringify(users));
+        users[userIndex].balance = Number(users[userIndex].balance) + Number(d.amount);
     }
 
-    // update status remove pending
-    deposits.splice(index, 1);
+    // save updated users
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // update deposit status
+    deposits[index].status = "approved";
     localStorage.setItem("pendingDeposits", JSON.stringify(deposits));
 
-    alert("Deposit Approved & Balance Updated!");
-
+    alert("Deposit Approved!");
     location.reload();
 }

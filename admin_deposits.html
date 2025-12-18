@@ -1,71 +1,53 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
     <meta charset="UTF-8">
     <title>Pending Deposits</title>
-    <link rel="stylesheet" href="style.css">
-
     <style>
         body {
-            background: linear-gradient(135deg, #4e73df, #1cc88a);
-            height: 100vh;
-            margin: 0;
-            padding-top: 20px;
+            background: #5463FF;
+            color: white;
             text-align: center;
-            color: white;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        #depositList {
-            width: 90%;
-            max-width: 450px;
-            margin: auto;
-        }
-
-        .deposit-card {
-            background: rgba(255, 255, 255, 0.15);
             padding: 15px;
+        }
+
+        .box {
+            border: 1px solid white;
+            padding: 10px;
+            margin: 10px;
             border-radius: 8px;
-            margin-bottom: 12px;
-            color: white;
-            text-align: left;
         }
 
         button {
-            padding: 6px 12px;
-            border: none;
-            margin-top: 8px;
+            padding: 10px 20px;
+            margin: 5px;
             border-radius: 6px;
-            cursor: pointer;
+            border: none;
+            font-size: 16px;
         }
 
-        .approve-btn {
+        .approve {
             background: green;
             color: white;
         }
 
-        .back-btn {
+        .back {
             background: red;
             color: white;
-            width: 150px;
-            margin-top: 25px;
         }
     </style>
 </head>
+
 <body>
 
-    <h2>Pending Deposits</h2>
+<h2>Pending Deposits</h2>
 
-    <div id="depositList">
-        <!-- JS Loaded Requests -->
-    </div>
+<div id="depositList"></div>
 
-    <button class="back-btn" onclick="window.location.href='admin.html'">Back</button>
+<button class="back" onclick="location.href='admin.html'">Back</button>
 
-    <script src="admin_deposits.js"></script>
+<script src="admin_deposits.js"></script>
 
 </body>
 </html>

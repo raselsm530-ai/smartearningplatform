@@ -1,21 +1,23 @@
 function loadDeposits() {
-    let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
+    let deposits = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
     let html = "";
+
+    if (deposits.length === 0) {
+        document.getElementById("depositList").innerHTML = "<p>No Pending Deposits</p>";
+        return;
+    }
 
     deposits.forEach((d, i) => {
         html += `
-        <div style="padding:10px;border:1px solid #999;margin:10px;">
-            <p>ইউজার: ${d.user}</p>
-            <p>টাকা: ${d.amount}৳</p>
-            <p>মেথড: ${d.method}</p>
-            <p>ট্রানজেকশন: ${d.trxid}</p>
-            <p>স্ট্যাটাস: ${d.status}</p>
-            ${
-                d.status === "Pending" 
-                ? `<button onclick="approveDeposit(${i})">Approve</button>
-                   <button onclick="rejectDeposit(${i})">Reject</button>`
-                : ""
-            }
+        <div style="padding:10px;border:1px solid #999;margin:10px;color:white;">
+            <p>📌 ইউজার: ${d.user}</p>
+            <p>💰 Amount: ${d.amount}৳</p>
+            <p>💳 Method: ${d.method}</p>
+            <p>⏱ Date: ${d.time}</p>
+
+            <button onclick="approveDeposit(${i})" style="background:green;color:white;padding:5px 10px;">
+                Approve
+            </button>
         </div>`;
     });
 
@@ -23,28 +25,23 @@ function loadDeposits() {
 }
 
 function approveDeposit(index) {
-    let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let deposits = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
+    let balances = JSON.parse(localStorage.getItem("balances")) || {};
 
-    let deposit = deposits[index];
-    deposit.status = "Approved";
+    let dep = deposits[index];
 
-    let user = users.find(u => u.username === deposit.user);
-
-    if (user) {
-        user.balance += Number(deposit.amount);
+    if (!balances[dep.user]) {
+        balances[dep.user] = 0;
     }
 
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("deposits", JSON.stringify(deposits));
+    balances[dep.user] += dep.amount;
 
-    loadDeposits();
-}
+    deposits.splice(index, 1);
 
-function rejectDeposit(index) {
-    let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
-    deposits[index].status = "Rejected";
-    localStorage.setItem("deposits", JSON.stringify(deposits));
+    localStorage.setItem("balances", JSON.stringify(balances));
+    localStorage.setItem("pendingDeposits", JSON.stringify(deposits));
+
+    alert("Deposit Approved!");
     loadDeposits();
 }
 

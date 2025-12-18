@@ -14,14 +14,13 @@ function depositMoney() {
         user: user,
         amount: Number(amount),
         method: method,
-        time: new Date().toLocaleString(),
-        status: "pending"
+        time: new Date().toLocaleString()   // FIXED
     });
 
     localStorage.setItem("pendingDeposits", JSON.stringify(deposits));
 
-    alert("ডিপোজিট রিকুয়েস্ট পাঠানো হয়েছে\nAdmin approve করলে ব্যালেন্স যোগ হবে");
-
+    alert("ডিপোজিট রিকুয়েস্ট পাঠানো হয়েছে");
+    
     document.getElementById("depositAmount").value = "";
     document.getElementById("paymentMethod").value = "";
 }

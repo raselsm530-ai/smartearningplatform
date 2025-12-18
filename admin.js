@@ -1,19 +1,22 @@
+// load pending deposits
 let list = document.getElementById("depositList");
 
-// user deposits stored in "deposits", not pendingDeposits
-let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
+// get pending deposits
+let deposits = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
 
+// show deposits
 list.innerHTML = "";
 
 deposits.forEach((d, i) => {
-    if (d.status === "Pending") {
+    if (d.status === "pending") {
         let div = document.createElement("div");
         div.className = "info-box";
 
         div.innerHTML = `
-            <p>Amount: ${d.amount} ৳</p>
-            <p>Method: ${d.method}</p>
-            <p>Date: ${d.date}</p>
+            <p><b>User:</b> ${d.user}</p>
+            <p><b>Amount:</b> ${d.amount} ৳</p>
+            <p><b>Method:</b> ${d.method}</p>
+            <p><b>Date:</b> ${d.date}</p>
             <button onclick="approve(${i})">Approve</button>
         `;
 
@@ -21,22 +24,28 @@ deposits.forEach((d, i) => {
     }
 });
 
+
+// Approve Function
 function approve(index) {
     let d = deposits[index];
 
-    let user = localStorage.getItem("currentUser");  // optional if you want
+    // get users array
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    let key = "balance_main"; // main balance
-    let balance = Number(localStorage.getItem(key)) || 0;
-    balance += Number(d.amount);
+    // find that specific user
+    let userIndex = users.findIndex(u => u.number === d.user);
 
-    localStorage.setItem(key, balance);
+    if (userIndex !== -1) {
+        users[userIndex].balance = (users[userIndex].balance || 0) + Number(d.amount);
 
-    // update status
-    deposits[index].status = "Approved";
-    localStorage.setItem("deposits", JSON.stringify(deposits));
+        localStorage.setItem("users", JSON.stringify(users));
+    }
 
-    alert("Deposit Approved!");
+    // update status remove pending
+    deposits.splice(index, 1);
+    localStorage.setItem("pendingDeposits", JSON.stringify(deposits));
+
+    alert("Deposit Approved & Balance Updated!");
 
     location.reload();
 }

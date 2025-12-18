@@ -1,5 +1,5 @@
 document.getElementById("registerForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // ⭐️ খুব গুরুত্বপূর্ণ
+    e.preventDefault();
 
     let phone = document.getElementById("phone").value.trim();
     let password = document.getElementById("password").value.trim();
@@ -22,21 +22,21 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
         return;
     }
 
-    if (localStorage.getItem(phone)) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (users.some(u => u.phone === phone)) {
         alert("এই নম্বরে আগেই একাউন্ট আছে");
         return;
     }
 
-    let user = {
-        phone: phone,
-        password: password,
-        withdrawPin: withdrawPin,
-        ref: refCode || "NO-REF",
-        balance: 0,
-        transactions: []
-    };
+    users.push({
+        phone,
+        password,
+        withdrawPin,
+        refCode: refCode || "NO-REF"
+    });
 
-    localStorage.setItem(phone, JSON.stringify(user));
+    localStorage.setItem("users", JSON.stringify(users));
 
     alert("রেজিস্ট্রেশন সফল 🎉 এখন লগইন করুন");
     window.location.href = "login.html";

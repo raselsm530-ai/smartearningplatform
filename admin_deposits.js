@@ -29,7 +29,6 @@ function approveDeposit(index) {
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Find user by phone
     const userIndex = users.findIndex(u => u.phone === deposit.user);
 
     if (userIndex !== -1) {
@@ -41,7 +40,6 @@ function approveDeposit(index) {
 
     localStorage.setItem("users", JSON.stringify(users));
 
-    // remove pending deposit
     pending.splice(index, 1);
     localStorage.setItem("pendingDeposits", JSON.stringify(pending));
 

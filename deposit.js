@@ -25,12 +25,12 @@ function depositMoney() {
         date: new Date().toLocaleString()
     };
 
-    let list = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
-    list.push(deposit);
+    let pendingList = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
+    pendingList.push(deposit);
 
-    localStorage.setItem("pendingDeposits", JSON.stringify(list));
+    localStorage.setItem("pendingDeposits", JSON.stringify(pendingList));
 
-    alert("ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে (Pending)");
+    alert("ডিপোজিট রিকোয়েস্ট পেন্ডিং এ গেছে!");
 
     document.getElementById("depositAmount").value = "";
     document.getElementById("paymentMethod").value = "";

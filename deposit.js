@@ -4,21 +4,9 @@ const fixedNumbers = {
     "rocket": "01797632229"
 };
 
-function updateNumber() {
-    const method = document.getElementById("paymentMethod").value;
-    const paymentNumber = document.getElementById("paymentNumber");
-
-    if (!method) {
-        paymentNumber.textContent = "মেথড নির্বাচন করুন";
-        return;
-    }
-
-    paymentNumber.textContent = method + ": " + fixedNumbers[method];
-}
-
 function depositMoney() {
     const amount = document.getElementById("depositAmount").value;
-    const method = document.getElementById("paymentMethod").value.toLowerCase();
+    const method = document.getElementById("paymentMethod").value;
     const trxid = document.getElementById("trxid").value;
 
     if (!amount || amount <= 0) {
@@ -32,7 +20,7 @@ function depositMoney() {
     }
 
     if (!trxid) {
-        alert("ট্রান্সঅ্যাকশন আইডি দিন");
+        alert("TrxID দিন");
         return;
     }
 

@@ -17,16 +17,17 @@ function depositMoney() {
     const user = localStorage.getItem("currentUser");
 
     const deposit = {
-        user,
+        user: user,
         amount: Number(amount),
-        method,
-        trxid: trxid, // <-- FIXED
+        method: method,
+        trxid: trxid,   // ← FIXED
         status: "pending",
         date: new Date().toLocaleString()
     };
 
     let list = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
     list.push(deposit);
+
     localStorage.setItem("pendingDeposits", JSON.stringify(list));
 
     alert("পেন্ডিং লিস্টে যোগ হয়েছে");

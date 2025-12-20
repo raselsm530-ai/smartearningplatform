@@ -1,26 +1,60 @@
-function depositMoney() {
-    let amount = document.getElementById("depositAmount").value;
-    let method = document.getElementById("paymentMethod").value;
-    let user = localStorage.getItem("currentUser");
+const fixedNumbers = {
+    "bkash": "01797632229",
+    "nagad": "01797632229",
+    "rocket": "01797632229"
+};
 
-    if (!amount || amount <= 0 || !method) {
-        alert("সঠিক তথ্য দিন");
+function updateNumber() {
+    const method = document.getElementById("paymentMethod").value;
+    const paymentNumber = document.getElementById("paymentNumber");
+
+    if (!method) {
+        paymentNumber.textContent = "মেথড নির্বাচন করুন";
         return;
     }
 
-    let deposits = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
+    paymentNumber.textContent = method + ": " + fixedNumbers[method];
+}
 
-    deposits.push({
-        user: user,
+function depositMoney() {
+    const amount = document.getElementById("depositAmount").value;
+    const method = document.getElementById("paymentMethod").value.toLowerCase();
+    const trxid = document.getElementById("trxid").value;
+
+    if (!amount || amount <= 0) {
+        alert("সঠিক এমাউন্ট লিখুন");
+        return;
+    }
+
+    if (!method) {
+        alert("পেমেন্ট মেথড নির্বাচন করুন");
+        return;
+    }
+
+    if (!trxid) {
+        alert("ট্রান্সঅ্যাকশন আইডি দিন");
+        return;
+    }
+
+    const user = localStorage.getItem("currentUser");
+
+    const deposit = {
+        user,
         amount: Number(amount),
-        method: method,
-        time: new Date().toLocaleString()
-    });
+        method,
+        trxid,
+        status: "pending",
+        date: new Date().toLocaleString()
+    };
 
-    localStorage.setItem("pendingDeposits", JSON.stringify(deposits));
+    let allDeposits = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
+    allDeposits.push(deposit);
 
-    alert("ডিপোজিট রিকুয়েস্ট পাঠানো হয়েছে");
+    localStorage.setItem("pendingDeposits", JSON.stringify(allDeposits));
+
+    alert("ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে (Pending)");
 
     document.getElementById("depositAmount").value = "";
     document.getElementById("paymentMethod").value = "";
+    document.getElementById("trxid").value = "";
 }

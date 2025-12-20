@@ -27,18 +27,21 @@ function approveDeposit(index) {
     let pending = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
     const deposit = pending[index];
 
-    // balance update
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    let userIndex = users.findIndex(u => u.phone === deposit.user);
+    // Find user by phone
+    const userIndex = users.findIndex(u => u.phone === deposit.user);
 
     if (userIndex !== -1) {
         users[userIndex].balance = Number(users[userIndex].balance || 0) + Number(deposit.amount);
+    } else {
+        alert("User Not Found!");
+        return;
     }
 
     localStorage.setItem("users", JSON.stringify(users));
 
-    // remove pending
+    // remove pending deposit
     pending.splice(index, 1);
     localStorage.setItem("pendingDeposits", JSON.stringify(pending));
 

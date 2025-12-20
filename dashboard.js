@@ -1,27 +1,18 @@
-// login check
-if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "login.html";
-}
+window.onload = function () {
 
-let currentUser = localStorage.getItem("currentUser");
+    const user = localStorage.getItem("currentUser");
 
-let users = JSON.parse(localStorage.getItem("users")) || [];
+    document.getElementById("welcomeText").textContent = "স্বাগতম, " + user;
 
-let user = users.find(u => u.phone === currentUser);
+    let balances = JSON.parse(localStorage.getItem("balances")) || {};
 
-if (!user) {
-    alert("ইউজার পাওয়া যায়নি!");
-    window.location.href = "login.html";
-}
+    let balance = balances[user] || 0;
 
-// final balance directly from user object
-let finalBalance = Number(user.balance) || 0;
-
-document.getElementById("welcomeText").innerText = "স্বাগতম, " + user.phone;
-document.getElementById("balance").innerText = finalBalance + " ৳";
+    document.getElementById("balance").textContent = balance + " ৳";
+};
 
 function logoutUser() {
-    localStorage.removeItem("loggedIn");
     localStorage.removeItem("currentUser");
+    alert("লগআউট সম্পন্ন হয়েছে");
     window.location.href = "login.html";
 }

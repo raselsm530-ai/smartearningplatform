@@ -1,65 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-    <title>Pending Deposits</title>
     <meta charset="UTF-8">
+    <title>Pending Deposits</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
 
-<h2>Pending Deposits</h2>
-<div id="pendingList"></div>
+<h2>Pending Deposit Requests</h2>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const pendingList = document.getElementById("pendingList");
-        let deposits = JSON.parse(localStorage.getItem("pendingDeposits") || "[]");
-        let users = JSON.parse(localStorage.getItem("users") || "[]");
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Amount</th>
+            <th>Method</th>
+            <th>TrxID</th>
+            <th>Date</th>
+            <th>Approve</th>
+        </tr>
+    </thead>
 
-        if (deposits.length === 0) {
-            pendingList.innerHTML = "<p>কোনো pending deposit নেই</p>";
-            return;
-        }
+    <tbody id="pendingTable"></tbody>
+</table>
 
-        deposits.forEach((item, index) => {
-            const box = document.createElement("div");
-            box.innerHTML = `
-                <p>📱User: ${item.user}</p>
-                <p>💰Amount: ${item.amount} টাকা</p>
-                <p>📦Method: ${item.method}</p>
-                <p>🔑TrxID: ${item.trxid}</p>
-                <p>📅Date: ${item.date}</p>
-                <button onclick="approve(${index})">Approve</button>
-                <button onclick="reject(${index})">Reject</button>
-            `;
-            pendingList.appendChild(box);
-        });
-    });
-
-    function approve(i) {
-        let deposits = JSON.parse(localStorage.getItem("pendingDeposits") || "[]");
-        let users = JSON.parse(localStorage.getItem("users") || "[]");
-
-        const dep = deposits[i];
-
-        let user = users.find(u => u.phone === dep.user);
-        user.balance += dep.amount;
-
-        deposits.splice(i, 1);
-
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("pendingDeposits", JSON.stringify(deposits));
-
-        alert("Approved!");
-        location.reload();
-    }
-
-    function reject(i) {
-        let deposits = JSON.parse(localStorage.getItem("pendingDeposits") || "[]");
-        deposits.splice(i, 1);
-        localStorage.setItem("pendingDeposits", JSON.stringify(deposits));
-        location.reload();
-    }
-</script>
+<script src="admin.js"></script>
 
 </body>
 </html>

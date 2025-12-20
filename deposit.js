@@ -15,7 +15,6 @@ function depositMoney() {
     }
 
     const user = localStorage.getItem("currentUser");
-
     const deposit = {
     user,
     amount: Number(amount),
@@ -23,7 +22,9 @@ function depositMoney() {
     trxid: trx,
     status: "pending",
     date: new Date().toLocaleString()
-};    let list = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
+};
+
+    let list = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
     list.push(deposit);
     localStorage.setItem("pendingDeposits", JSON.stringify(list));
 

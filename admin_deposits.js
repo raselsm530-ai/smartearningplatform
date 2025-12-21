@@ -1,6 +1,6 @@
 function loadPendingDeposits() {
-    const list = document.getElementById("depositList");
     let pending = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
+    const list = document.getElementById("depositList");
     list.innerHTML = "";
 
     if (pending.length === 0) {
@@ -17,8 +17,7 @@ function loadPendingDeposits() {
             <p>📞 Number: ${d.number}</p>
             <p>📝 TrxID: ${d.trxid}</p>
             <p>⏱ Date: ${d.date}</p>
-
-            <button onclick="approveDeposit(${index})">Approve</button>
+            <button class="approve" onclick="approveDeposit(${index})">Approve</button>
         </div>`;
     });
 }
@@ -28,15 +27,14 @@ function approveDeposit(index) {
     let deposit = pending[index];
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
-
     let userIndex = users.findIndex(u => u.phone == deposit.user);
 
     if (userIndex === -1) {
-        alert("User Not Found!");
+        alert("User Not Found");
         return;
     }
 
-    users[userIndex].balance = (Number(users[userIndex].balance) || 0) + Number(deposit.amount);
+    users[userIndex].balance = Number(users[userIndex].balance || 0) + Number(deposit.amount);
 
     localStorage.setItem("users", JSON.stringify(users));
 

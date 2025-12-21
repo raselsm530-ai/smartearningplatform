@@ -1,3 +1,6 @@
+import { db } from "./firebase-config.js";
+import { ref, push } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+
 const fixedNumbers = {
     "bkash": "01797632229",
     "nagad": "01797632229",
@@ -10,42 +13,41 @@ function updateNumber() {
         fixedNumbers[method] ? `${method}: ${fixedNumbers[method]}` : "মেথড নির্বাচন করুন";
 }
 
-function depositMoney() {
-    const amount = document.getElementById("depositAmount").value;
-    const method = document.getElementById("paymentMethod").value;
+window.updateNumber = updateNumber;
 
-    const trx = document.getElementById("trxid").value.trim() || "N/A";
+async function depositMoney() {
+    const amount = document.getElementById("depositAmount").value.trim();
+    const method = document.getElementById("paymentMethod").value.trim();
+    const trx = document.getElementById("trxid").value.trim();
+    const user = localStorage.getItem("currentUser");
 
-    if (!amount || !method) {
-        alert("Amount & Method দিন!");
+    if (!amount || !method || !trx) {
+        alert("সব তথ্য দিন");
         return;
     }
 
-    const currentUser = localStorage.getItem("currentUser");
-
-    if (!currentUser) {
-        alert("Please Login!");
+    if (!user) {
+        alert("লগইন প্রয়োজন");
         return;
     }
 
-    const deposit = {
-        user: currentUser,
-        amount: Number(amount),
+    const depositData = {
+        user,
+        amount,
         method,
         number: fixedNumbers[method],
-        trxid: trx,
-        date: new Date().toLocaleString()
+        trx,
+        status: "pending",
+        time: new Date().toLocaleString()
     };
 
-    let list = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
-    list.push(deposit);
+    await push(ref(db, "pendingDeposits"), depositData);
 
-    localStorage.setItem("pendingDeposits", JSON.stringify(list));
-
-    alert("Deposit Sent!");
-
+    alert("ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে");
+    
     document.getElementById("depositAmount").value = "";
     document.getElementById("paymentMethod").value = "";
     document.getElementById("trxid").value = "";
-    updateNumber();
 }
+
+window.depositMoney = depositMoney;

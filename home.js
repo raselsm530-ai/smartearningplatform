@@ -1,19 +1,18 @@
 window.onload = function () {
 
     const user = localStorage.getItem("currentUser");
-
-    // Welcome text
     document.getElementById("welcomeText").textContent = "স্বাগতম, " + user;
 
-    let balances = JSON.parse(localStorage.getItem("balances")) || {};
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let data = users.find(u => u.phone === user);
 
-    let balance = balances[user] || 0;
+    let balance = data ? data.balance : 0;
 
     document.getElementById("balance").textContent = balance + " ৳";
 };
 
 function logoutUser() {
     localStorage.removeItem("currentUser");
-    alert("লগআউট সফল হয়েছে");
+    alert("লগআউট সম্পন্ন হয়েছে");
     window.location.href = "login.html";
 }

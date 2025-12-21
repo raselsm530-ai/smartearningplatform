@@ -14,6 +14,7 @@ function loadPendingDeposits() {
             <p>📱 User: ${d.user}</p>
             <p>💰 Amount: ${d.amount} ৳</p>
             <p>🏦 Method: ${d.method}</p>
+            <p>📞 Number: ${d.number || "N/A"}</p>     <!-- fixed -->
             <p>📝 TrxID: ${d.trxid}</p>
             <p>⏱ Date: ${d.date}</p>
 
@@ -22,13 +23,14 @@ function loadPendingDeposits() {
     });
 }
 
+
 function approveDeposit(index) {
     let pending = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
     let deposit = pending[index];
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // FIXED USER MATCH
+    // Match user by phone
     let userIndex = users.findIndex(u => u.phone == deposit.user);
 
     if (userIndex === -1) {
@@ -36,19 +38,20 @@ function approveDeposit(index) {
         return;
     }
 
-    // FIXED BALANCE UPDATE
+    // Update balance
     users[userIndex].balance = Number(users[userIndex].balance || 0) + Number(deposit.amount);
 
-let current = JSON.parse(localStorage.getItem("currentUserData")) || null;
-if (current && current.phone == deposit.user) {
-    current.balance = users[userIndex].balance;
-    localStorage.setItem("currentUserData", JSON.stringify(current));
-}
+    // update current user if logged in same user
+    let current = JSON.parse(localStorage.getItem("currentUserData")) || null;
+    if (current && current.phone == deposit.user) {
+        current.balance = users[userIndex].balance;
+        localStorage.setItem("currentUserData", JSON.stringify(current));
+    }
 
-    // SAVE UPDATED USERS
+    // save updated
     localStorage.setItem("users", JSON.stringify(users));
 
-    // REMOVE PENDING ITEM
+    // remove from pending
     pending.splice(index, 1);
     localStorage.setItem("pendingDeposits", JSON.stringify(pending));
 

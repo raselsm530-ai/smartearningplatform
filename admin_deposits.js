@@ -39,6 +39,12 @@ function approveDeposit(index) {
     // FIXED BALANCE UPDATE
     users[userIndex].balance = Number(users[userIndex].balance || 0) + Number(deposit.amount);
 
+let current = JSON.parse(localStorage.getItem("currentUserData")) || null;
+if (current && current.phone == deposit.user) {
+    current.balance = users[userIndex].balance;
+    localStorage.setItem("currentUserData", JSON.stringify(current));
+}
+
     // SAVE UPDATED USERS
     localStorage.setItem("users", JSON.stringify(users));
 

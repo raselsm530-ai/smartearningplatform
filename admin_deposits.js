@@ -1,46 +1,61 @@
 function loadPendingDeposits() {
+    const depositList = document.getElementById("depositList");
+    depositList.innerHTML = "";
+
     let pending = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
-    const list = document.getElementById("depositList");
-    list.innerHTML = "";
 
     if (pending.length === 0) {
-        list.innerHTML = "<p>No Pending Deposits</p>";
+        depositList.innerHTML = "<p style='text-align:center;color:white;'>কোনো Pending Deposit নেই</p>";
         return;
     }
 
-    pending.forEach((d, index) => {
-        list.innerHTML += `
-        <div class="box">
-            <p>📱 User: ${d.user}</p>
-            <p>💰 Amount: ${d.amount} ৳</p>
-            <p>🏦 Method: ${d.method}</p>
-            <p>📝 TrxID: ${d.trxid}</p>
-            <p>⏱ Date: ${d.date}</p>
-            <button onclick="approveDeposit(${index})">Approve</button>
-        </div>`;
+    pending.forEach((dep, index) => {
+        const div = document.createElement("div");
+        div.className = "deposit-box";
+
+        div.innerHTML = `
+            <p><strong>ইউজার:</strong> ${dep.user}</p>
+            <p><strong>Amount:</strong> ${dep.amount} ৳</p>
+            <p><strong>Method:</strong> ${dep.method}</p>
+            <p><strong>Send To:</strong> ${dep.number}</p>
+            <p><strong>TrxID:</strong> ${dep.trxid}</p>
+            <button onclick="approve(${index})" class="approve-btn">Approve</button>
+            <button onclick="reject(${index})" class="reject-btn">Reject</button>
+            <hr>
+        `;
+
+        depositList.appendChild(div);
     });
 }
 
-function approveDeposit(index) {
+function approve(index) {
     let pending = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
-    let deposit = pending[index];
+    const deposit = pending[index];
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    let userIndex = users.findIndex(u => u.phone === deposit.user);
 
-    if (userIndex === -1) {
-        alert("User Not Found");
-        return;
+    const userIndex = users.findIndex(u => u.phone === deposit.user);
+
+    if (userIndex !== -1) {
+        users[userIndex].balance = Number(users[userIndex].balance) + Number(deposit.amount);
     }
-
-    users[userIndex].balance = Number(users[userIndex].balance) + Number(deposit.amount);
 
     localStorage.setItem("users", JSON.stringify(users));
 
     pending.splice(index, 1);
     localStorage.setItem("pendingDeposits", JSON.stringify(pending));
 
-    alert("Deposit Approved! Balance Updated");
+    alert("Deposit Approved");
+    loadPendingDeposits();
+}
+
+function reject(index) {
+    let pending = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
+
+    pending.splice(index, 1);
+    localStorage.setItem("pendingDeposits", JSON.stringify(pending));
+
+    alert("Deposit Rejected");
     loadPendingDeposits();
 }
 

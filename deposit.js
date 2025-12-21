@@ -14,20 +14,19 @@ function depositMoney() {
         return;
     }
 
-    // FIX → Correct current user fetch
-    let current = JSON.parse(localStorage.getItem("currentUserData"));
+    const user = localStorage.getItem("currentUser");
 
-    if (!current || !current.phone) {
+    if (!user) {
         alert("Please Login First!");
         return;
     }
 
     const deposit = {
-        user: current.phone,     // fixed → phone number saved
+        user: user,
         amount: Number(amount),
         method: method,
         trxid: trxid,
-        number: fixedNumbers[method],  // Fixed payment number
+        number: fixedNumbers[method],
         status: "pending",
         date: new Date().toLocaleString()
     };

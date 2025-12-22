@@ -1,20 +1,18 @@
 import { auth } from "./firebase-config.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-window.login = () => {
+window.login = function () {
+    let phone = document.getElementById("phone").value;
+    let pass = document.getElementById("password").value;
 
-    const phone = document.getElementById("phone").value.trim();
-    const pass = document.getElementById("password").value.trim();
-
-    const email = phone + "@app.com";
+    let email = phone + "@smart.com";
 
     signInWithEmailAndPassword(auth, email, pass)
         .then(() => {
-            localStorage.setItem("user", phone);
-            alert("লগইন সফল 🎉");
-            location.href = "home.html";
+            alert("লগইন সফল!");
+            window.location.href = "dashboard.html";
         })
-        .catch(err => {
-            alert("❌ লগইন ব্যর্থ: ভুল নম্বর বা পাসওয়ার্ড");
+        .catch((err) => {
+            alert(err.message);
         });
 };

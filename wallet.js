@@ -1,5 +1,5 @@
 import { db } from "./firebase-config.js";
-import { ref, push, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { ref, push, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const fixedNumbers = {
     bkash: "01797632229",
@@ -7,35 +7,53 @@ const fixedNumbers = {
     rocket: "01797632229"
 };
 
-window.updateNumber = () => {
-    const method = document.getElementById("paymentMethod").value;
-    document.getElementById("paymentNumber").innerText =
-        fixedNumbers[method] ? `${method}: ${fixedNumbers[method]}` : "মেথড নির্বাচন করুন";
+let selectedAmount = 0;
+let selectedMethod = "";
+
+window.selectAmount = (amount) => {
+    selectedAmount = amount;
+
+    // Auto select method randomly
+    const methods = Object.keys(fixedNumbers);
+    selectedMethod = methods[Math.floor(Math.random() * methods.length)];
+
+    document.getElementById("paymentNumber").innerText = fixedNumbers[selectedMethod];
+    document.getElementById("paymentMethod").innerText = selectedMethod.toUpperCase();
 };
 
-window.depositMoney = () => {
-    const amount = document.getElementById("depositAmount").value.trim();
-    const method = document.getElementById("paymentMethod").value.trim();
-    const trxid = document.getElementById("trxid").value.trim();
-    const phone = localStorage.getItem("user");
+window.depositMoney = async () => {
+    const userPhone = localStorage.getItem("user");
+    if (!userPhone) {
+        alert("লগইন করুন!");
+        return;
+    }
 
-    if (!phone) { alert("Please login first!"); return; }
-    if (!amount || !method) { alert("Amount & Method দরকার!"); return; }
+    if (!selectedAmount || !selectedMethod) {
+        alert("Amount নির্বাচন করুন!");
+        return;
+    }
 
-    const depositRef = push(ref(db, "deposits"));
-    set(depositRef, {
-        user: phone,
-        amount: Number(amount),
-        method: method,
-        number: fixedNumbers[method],
-        trxid: trxid || "N/A",
+    const depositData = {
+        user: userPhone,
+        amount: selectedAmount,
+        method: selectedMethod,
+        number: fixedNumbers[selectedMethod],
         status: "pending",
         date: new Date().toLocaleString()
-    });
-    alert("ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে (Pending)");
+    };
 
-    document.getElementById("depositAmount").value = "";
-    document.getElementById("paymentMethod").value = "";
-    document.getElementById("trxid").value = "";
-    updateNumber();
+    try {
+        const depositsRef = ref(db, "pendingDeposits");
+        await push(depositsRef, depositData);
+
+        alert(`ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে: ${selectedAmount} ৳ (${selectedMethod})`);
+        
+        // Reset
+        selectedAmount = 0;
+        selectedMethod = "";
+        document.getElementById("paymentNumber").innerText = "Amount ক্লিক করুন";
+        document.getElementById("paymentMethod").innerText = "-";
+    } catch (err) {
+        alert("Error: " + err.message);
+    }
 };

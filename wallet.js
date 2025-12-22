@@ -1,6 +1,5 @@
 let selectedAmount = 0;
 
-// আপনার ফিক্সড নাম্বার গুলো
 const numbers = {
     "বিকাশ": "01797632229",
     "নগদ": "01797632229",
@@ -10,33 +9,38 @@ const numbers = {
 document.querySelectorAll(".amount").forEach(btn => {
     btn.addEventListener("click", () => {
 
-        document.querySelectorAll(".amount").forEach(a => a.classList.remove("active"));
+        document.querySelectorAll(".amount")
+            .forEach(a => a.classList.remove("active"));
+
         btn.classList.add("active");
 
         selectedAmount = btn.dataset.amount;
-        document.getElementById("selectedAmountText").innerText = selectedAmount;
+
+        document.getElementById("showSelection").innerHTML =
+            `আপনি নির্বাচন করেছেন <b>${selectedAmount} ৳</b>`;
     });
 });
 
 window.startDeposit = () => {
-    
-    if (selectedAmount == 0) {
-        alert("দয়া করে একটি এমাউন্ট সিলেক্ট করুন");
+
+    if (!selectedAmount) {
+        alert("দয়া করে এমাউন্ট সিলেক্ট করুন");
         return;
     }
 
     const method = document.getElementById("method").value;
 
-    const paymentNumber = numbers[method];
+    if (!method) {
+        alert("পেমেন্ট মেথড নির্বাচন করুন");
+        return;
+    }
 
-    alert(`
-আপনি ${method} এর মাধ্যমে ${selectedAmount} টাকা ডিপোজিট করতে যাচ্ছেন।
+    const num = numbers[method];
 
-📌 পেমেন্ট নাম্বার:
-${paymentNumber}
-
-টাকা পাঠানোর পরে স্ক্রিনশট আপলোড করুন।
-    `);
-
-    // Future: screenshot system & firebase insert
+    document.getElementById("paymentNumberBox").classList.remove("hidden");
+    document.getElementById("paymentNumberBox").innerHTML = `
+        📌 ${method} নাম্বার: <b>${num}</b>
+        <br>এমাউন্ট: <b>${selectedAmount} ৳</b>
+        <br><br>💡 এখন অ্যাপ দিয়ে টাকা পাঠান।
+    `;
 };

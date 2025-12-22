@@ -1,52 +1,68 @@
 body {
-    background: linear-gradient(135deg, #4B79A1, #283E51);
-    font-family: Arial;
+    margin: 0;
+    background: linear-gradient(135deg, #3d5af1, #5a73ec);
+    height: 100vh;
     display: flex;
     justify-content: center;
-    padding: 20px;
+    align-items: center;
+    font-family: Arial;
 }
 
 .wallet-container {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    width: 95%;
+    width: 92%;
     max-width: 420px;
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+}
+
+.title {
     text-align: center;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    margin-bottom: 18px;
 }
 
-.amount-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.amount-box {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
 }
 
-.amount-card {
-    width: 48%;
-    background: #eeeeee;
-    padding: 14px;
-    margin: 5px 0;
-    border-radius: 10px;
-    font-size: 18px;
-}
-
-.amount-card.active {
-    background: #4B7BFF;
-    color: white;
-}
-
-button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 12px;
-    background: #4B7BFF;
-    color: white;
+.amount {
+    padding: 16px;
+    background: #eef2ff;
     border: none;
+    border-radius: 12px;
     font-size: 18px;
-    border-radius: 10px;
 }
 
-.payment-info {
-    margin-top: 10px;
+.amount.active {
+    background: #3d5af1;
+    color: white;
+}
+
+.info-card {
+    background: #eef2ff;
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.select-method, .deposit-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+}
+
+.deposit-btn {
+    background: #3d5af1;
+    color: white;
+    font-size: 18px;
 }

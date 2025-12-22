@@ -5,22 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>রেজিস্টার</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .register-box {
+            width: 90%;
+            max-width: 420px;
+            background: #f5f7ff;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #4B7BFF;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            margin-top: 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        a {
+            color: #3d5af1;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="register-box">
-        <h2>রেজিস্টার</h2>
 
-        <input type="tel" id="phone" placeholder="মোবাইল নাম্বার">
-        <input type="password" id="password" placeholder="পাসওয়ার্ড">
-        <input type="password" id="cpassword" placeholder="কনফার্ম পাসওয়ার্ড">
-        <input type="number" id="pin" placeholder="উইথড্র পিন (৪ সংখ্যা)">
-        <input type="text" id="refer" placeholder="রেফার কোড (ঐচ্ছিক)">
+<div class="register-box">
+    <h2>রেজিস্টার</h2>
 
-        <button type="button" onclick="register()">রেজিস্টার</button>
-        <p style="margin-top:15px">ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="login.html">লগইন</a></p>
-    </div>
+    <input type="tel" id="phone" placeholder="মোবাইল নাম্বার">
+    <input type="password" id="password" placeholder="পাসওয়ার্ড">
+    <input type="password" id="cpassword" placeholder="কনফার্ম পাসওয়ার্ড">
+    <input type="number" id="pin" placeholder="উইথড্র পিন (৪ সংখ্যা)">
+    <input type="text" id="refer" placeholder="রেফার কোড (ঐচ্ছিক)">
 
-    <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="register.js"></script>
+    <button type="button" onclick="register()">রেজিস্টার</button>
+
+    <p style="margin-top:15px">ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="login.html">লগইন</a></p>
+</div>
+
+<!-- Firebase Config -->
+<script type="module" src="firebase-config.js"></script>
+
+<!-- Register JS -->
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { ref, set } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
+
+window.register = () => {
+    const phone = document.getElementById("phone").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    const cpass = document.getElementById("cpassword").value.trim();
+    const pin = document.getElementById("pin").value.trim();
+    const refer = document.getElementById("refer").value.trim();
+
+    if(phone === "" || pass === "" || cpass === "" || pin === "") {
+        alert("সব ঘর পূরণ করুন!");
+        return;
+    }
+
+    if(pass !== cpass) {
+        alert("পাসওয়ার্ড মিলছে না!");
+        return;
+    }
+
+    if(pin.length !== 4) {
+        alert("উইথড্র পিন ৪ সংখ্যার হতে হবে!");
+        return;
+    }
+
+    const email = phone + "@app.com";
+
+    createUserWithEmailAndPassword(auth, email, pass)
+        .then(userCredential => {
+            set(ref(db, "users/" + phone), {
+                phone: phone,
+                balance: 0,
+                withdrawPin: pin,
+                refCode: refer || "NO-REF",
+                joined: new Date().toLocaleString()
+            });
+
+            alert("রেজিস্ট্রেশন সফল 👍");
+            location.href = "login.html";
+        })
+        .catch(err => {
+            alert("Error: " + err.message);
+        });
+};
+</script>
+
 </body>
 </html>

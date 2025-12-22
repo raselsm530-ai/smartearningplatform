@@ -1,117 +1,43 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>ওয়ালেট</title>
+    <title>ওয়ালেট</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .wallet-box {
-            width: 100%;
-            max-width: 480px;
-            background: #f5f7ff;
-            padding: 25px;
-            border-radius: 18px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
-
-        .amount-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .amount-box {
-            background: #3d5af1;
-            color: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .info-box {
-            background: #eef2ff;
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-
-        .method-grid {
-            display: flex;
-            justify-content: space-around;
-            margin: 12px 0;
-        }
-
-        .method-box {
-            width: 80px;
-            padding: 12px;
-            border-radius: 12px;
-            border: 2px solid #ccc;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .method-box.active {
-            border-color: #3d5af1;
-            background: #3d5af1;
-            color: white;
-            font-weight: bold;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background: #4B7BFF;
-            color: #fff;
-            font-size: 16px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
-    <div class="wallet-box">
-        <h2>টাকা যোগ করুন</h2>
+<div class="container">
+    <h2 class="page-title">টাকা যোগ করুন</h2>
 
-        <div class="info-box">
-            <p><strong>ডিপোজিট নাম্বার:</strong></p>
-            <p id="paymentNumber">Amount ক্লিক করুন</p>
-        </div>
-
-        <div class="amount-grid">
-            <div class="amount-box" onclick="selectAmount(500)">500 ৳</div>
-            <div class="amount-box" onclick="selectAmount(1000)">1000 ৳</div>
-            <div class="amount-box" onclick="selectAmount(3000)">3000 ৳</div>
-            <div class="amount-box" onclick="selectAmount(5000)">5000 ৳</div>
-            <div class="amount-box" onclick="selectAmount(10000)">10000 ৳</div>
-        </div>
-
-        <div class="info-box">
-            <p>Payment Method:</p>
-            <div class="method-grid">
-                <div class="method-box" id="bkash" onclick="selectMethod('bkash')">Bkash</div>
-                <div class="method-box" id="nagad" onclick="selectMethod('nagad')">Nagad</div>
-                <div class="method-box" id="rocket" onclick="selectMethod('rocket')">Rocket</div>
-            </div>
-        </div>
-
-        <button onclick="depositMoney()">ডিপোজিট পাঠান</button>
+    <div class="amount-options">
+        <button onclick="selectAmount(500)">500 ৳</button>
+        <button onclick="selectAmount(1000)">1000 ৳</button>
+        <button onclick="selectAmount(3000)">3000 ৳</button>
+        <button onclick="selectAmount(5000)">5000 ৳</button>
+        <button onclick="selectAmount(10000)">10000 ৳</button>
     </div>
 
-    <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="wallet.js"></script>
+    <div class="info-box">
+        <p><strong>পেমেন্ট মেথড:</strong></p>
+        <select id="paymentMethod">
+            <option value="">পেমেন্ট মেথড নির্বাচন করুন</option>
+            <option value="bkash">Bkash</option>
+            <option value="nagad">Nagad</option>
+            <option value="rocket">Rocket</option>
+        </select>
+    </div>
+
+    <div class="info-box">
+        <p><strong>নির্দিষ্ট নাম্বার:</strong> <span id="paymentNumber">01797632229</span></p>
+    </div>
+
+    <div class="input-group">
+        <input type="text" id="trxid" placeholder="Transaction ID (TrxID)">
+    </div>
+
+    <button onclick="depositMoney()">ডিপোজিট করুন</button>
+</div>
+
+<script src="wallet.js"></script>
 </body>
-</html>
+</html>          

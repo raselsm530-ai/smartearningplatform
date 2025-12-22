@@ -1,10 +1,9 @@
 import { auth, db } from "./firebase-config.js";
-import { createUserWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { set, ref } 
-from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { set, ref } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-window.register = function () {
+window.register = async function () {
+
     const phone = document.getElementById("phone").value;
     const password = document.getElementById("password").value;
     const cpassword = document.getElementById("cpassword").value;
@@ -21,21 +20,27 @@ window.register = function () {
         return;
     }
 
-    createUserWithEmailAndPassword(auth, `${phone}@gmail.com`, password)
-        .then(userCredential => {
-            const uid = userCredential.user.uid;
+    try {
 
-            set(ref(db, "users/" + uid), {
-                phone,
-                pin,
-                refer,
-                balance: 0
-            });
+        // Trick: email format বানানোর জন্য
+        const fakeEmail = phone + "@example.com";
 
-            alert("রেজিস্ট্রেশন সফল!");
-            window.location.href = "login.html";
-        })
-        .catch(err => {
-            alert("ত্রুটি: " + err.message);
+        const userCred = await createUserWithEmailAndPassword(auth, fakeEmail, password);
+
+        const uid = userCred.user.uid;
+
+        await set(ref(db, "users/" + uid), {
+            phone: phone,
+            password: password,
+            pin: pin,
+            refer: refer,
+            balance: 0
         });
+
+        alert("রেজিস্ট্রেশন সফল!");
+        window.location.href = "login.html";
+
+    } catch (error) {
+        alert("Error: " + error.message);
+    }
 }

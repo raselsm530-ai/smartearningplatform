@@ -1,29 +1,22 @@
-import { db } from "./firebase-config.js";
-import { ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { auth } from "./firebase-config.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+const login = () => {
 
-    let phone = document.getElementById("phone").value.trim();
-    let password = document.getElementById("password").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const pass = document.getElementById("password").value.trim();
 
-    const dbRef = ref(db);
-    const snapshot = await get(child(dbRef, `users/${phone}`));
+    const email = phone + "@app.com";
 
-    if (!snapshot.exists()) {
-        alert("এই নম্বরে কোনো অ্যাকাউন্ট নেই!");
-        return;
-    }
+    signInWithEmailAndPassword(auth, email, pass)
+        .then(() => {
+            localStorage.setItem("user", phone);
+            alert("লগইন সফল!");
+            location.href = "home.html";
+        })
+        .catch(err => {
+            alert("Error: " + err.message);
+        });
+};
 
-    const data = snapshot.val();
-
-    if (data.password !== password) {
-        alert("পাসওয়ার্ড ভুল!");
-        return;
-    }
-
-    localStorage.setItem("currentUser", phone);
-
-    alert("লগইন সফল 🎉");
-    window.location.href = "home.html";
-});
+window.login = login;

@@ -1,18 +1,19 @@
 import { auth } from "./firebase-config.js";
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-window.login = function () {
-    let phone = document.getElementById("phone").value;
-    let pass = document.getElementById("password").value;
+document.getElementById("loginForm").addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    let email = phone + "@smart.com";
+    const phone = document.getElementById("phone").value;
+    const pass = document.getElementById("password").value;
+    const email = phone + "@gmail.com";
 
     signInWithEmailAndPassword(auth, email, pass)
         .then(() => {
-            alert("লগইন সফল!");
-            window.location.href = "dashboard.html";
+            alert("Login Successful!");
+            window.location.href = "home.html";
         })
-        .catch((err) => {
-            alert(err.message);
+        .catch((error) => {
+            alert(error.message);
         });
-};
+});

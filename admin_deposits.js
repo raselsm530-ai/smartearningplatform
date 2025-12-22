@@ -1,46 +1,57 @@
-function loadPendingDeposits() {
-    let pending = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
-    const list = document.getElementById("depositList");
+import { db } from "./firebase-config.js";
+import { ref, onValue, remove, update, get, child } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 
-    list.innerHTML = "";
+const list = document.getElementById("depositList");
 
-    if (pending.length === 0) {
-        list.innerHTML = "<p>No Pending Deposits</p>";
-        return;
-    }
+function load() {
+    onValue(ref(db, "pendingDeposits"), snapshot => {
+        list.innerHTML = "";
 
-    pending.forEach((d, index) => {
-        list.innerHTML += `
-        <div class="box">
-            <p>User: ${d.user}</p>
-            <p>Amount: ${d.amount}৳</p>
-            <p>Method: ${d.method}</p>
-            <p>Send To: ${d.number}</p>
-            <p>TrxID: ${d.trxid}</p>
-            <p>Date: ${d.date}</p>
-            <button onclick="approve(${index})">Approve</button>
-        </div>`;
+        if (!snapshot.exists()) {
+            list.innerHTML = "<p style='color:white;text-align:center;'>কোন Pending নেই</p>";
+            return;
+        }
+
+        snapshot.forEach(item => {
+            const key = item.key;
+            const dep = item.val();
+
+            const div = document.createElement("div");
+            div.className = "deposit-box";
+
+            div.innerHTML = `
+                <p><b>User:</b> ${dep.user}</p>
+                <p><b>Amount:</b> ${dep.amount} ৳</p>
+                <p><b>Method:</b> ${dep.method}</p>
+                <p><b>Send To:</b> ${dep.number}</p>
+                <p><b>TrxID:</b> ${dep.trxid}</p>
+
+                <button onclick="approve('${key}','${dep.user}',${dep.amount})" class="approve-btn">Approve</button>
+                <button onclick="reject('${key}')" class="reject-btn">Reject</button>
+            `;
+
+            list.appendChild(div);
+        });
     });
 }
 
-function approve(index) {
-    let pending = JSON.parse(localStorage.getItem("pendingDeposits")) || [];
-    const deposit = pending[index];
+window.approve = async function (key, phone, amount) {
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    let userIndex = users.findIndex(u => u.phone === deposit.user);
+    const snap = await get(child(ref(db), "users/" + phone));
 
-    if (userIndex !== -1) {
-        users[userIndex].balance = Number(users[userIndex].balance) + Number(deposit.amount);
-        localStorage.setItem("users", JSON.stringify(users));
+    if (snap.exists()) {
+        let bal = snap.val().balance || 0;
+        await update(ref(db, "users/" + phone), { balance: bal + amount });
     }
 
-    pending.splice(index, 1);
+    await remove(ref(db, "pendingDeposits/" + key));
 
-    localStorage.setItem("pendingDeposits", JSON.stringify(pending));
+    alert("Deposit Approved!");
+};
 
-    alert("Approved");
-    loadPendingDeposits();
-}
+window.reject = async function (key) {
+    await remove(ref(db, "pendingDeposits/" + key));
+    alert("Rejected");
+};
 
-loadPendingDeposits();
+load();

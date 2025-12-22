@@ -3,37 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>ওয়ালেট</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="wallet.css">
 </head>
 <body>
 
-<div class="wallet-container">
+<div class="container">
+    <h2>ওয়ালেট ডিপোজিট</h2>
 
-    <h2 class="title">টাকা যোগ করুন</h2>
+    <p>অ্যামাউন্ট নির্বাচন করুন👇</p>
 
-    <h3 class="select-text">অ্যামাউন্ট নির্বাচন করুন👇</h3>
-
-    <div class="amount-box">
-        <button class="amount" data-amount="500">500 ৳</button>
-        <button class="amount" data-amount="3000">3000 ৳</button>
-        <button class="amount" data-amount="5000">5000 ৳</button>
-        <button class="amount" data-amount="10000">10000 ৳</button>
+    <div class="amount-area">
+        <button class="amount" data-amount="500">500</button>
+        <button class="amount" data-amount="1000">1000</button>
+        <button class="amount" data-amount="3000">3000</button>
+        <button class="amount" data-amount="5000">5000</button>
     </div>
 
-    <div id="showSelection" class="info-card">❗ এমাউন্ট নির্বাচন করা হয়নি</div>
+    <div id="selectedBox" class="info">এখনো কিছু নির্বাচন করা হয়নি</div>
 
-    <select id="method" class="select-method">
-        <option value="">পেমেন্ট মেথড নির্বাচন করুন</option>
+    <select id="method">
+        <option value="">মেথড নির্বাচন করুন</option>
         <option value="বিকাশ">বিকাশ</option>
         <option value="নগদ">নগদ</option>
         <option value="রকেট">রকেট</option>
     </select>
 
-    <div id="paymentNumberBox" class="info-card hidden"></div>
+    <div id="numberBox" class="info hidden"></div>
 
-    <button onclick="startDeposit()" class="deposit-btn">ডিপোজিট করুন</button>
-
+    <button class="submit" onclick="deposit()">ডিপোজিট করুন</button>
 </div>
 
 <script src="wallet.js"></script>

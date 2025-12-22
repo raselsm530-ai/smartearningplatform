@@ -1,5 +1,5 @@
 import { db } from "./firebase-config.js";
-import { ref, push, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { ref, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const fixedNumbers = {
     bkash: "01797632229",
@@ -13,12 +13,29 @@ let selectedMethod = "";
 window.selectAmount = (amount) => {
     selectedAmount = amount;
 
-    // Auto select method randomly
-    const methods = Object.keys(fixedNumbers);
-    selectedMethod = methods[Math.floor(Math.random() * methods.length)];
+    // Auto random method if not selected
+    if (!selectedMethod) {
+        const methods = Object.keys(fixedNumbers);
+        selectedMethod = methods[Math.floor(Math.random() * methods.length)];
+        document.getElementById(selectedMethod).classList.add("active");
+    }
 
     document.getElementById("paymentNumber").innerText = fixedNumbers[selectedMethod];
-    document.getElementById("paymentMethod").innerText = selectedMethod.toUpperCase();
+};
+
+window.selectMethod = (method) => {
+    selectedMethod = method;
+
+    // Highlight selected
+    Object.keys(fixedNumbers).forEach(m => {
+        const el = document.getElementById(m);
+        if (m === method) el.classList.add("active");
+        else el.classList.remove("active");
+    });
+
+    if (selectedAmount) {
+        document.getElementById("paymentNumber").innerText = fixedNumbers[selectedMethod];
+    }
 };
 
 window.depositMoney = async () => {
@@ -28,8 +45,13 @@ window.depositMoney = async () => {
         return;
     }
 
-    if (!selectedAmount || !selectedMethod) {
+    if (!selectedAmount) {
         alert("Amount নির্বাচন করুন!");
+        return;
+    }
+
+    if (!selectedMethod) {
+        alert("Payment Method নির্বাচন করুন!");
         return;
     }
 
@@ -47,12 +69,12 @@ window.depositMoney = async () => {
         await push(depositsRef, depositData);
 
         alert(`ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে: ${selectedAmount} ৳ (${selectedMethod})`);
-        
+
         // Reset
         selectedAmount = 0;
         selectedMethod = "";
         document.getElementById("paymentNumber").innerText = "Amount ক্লিক করুন";
-        document.getElementById("paymentMethod").innerText = "-";
+        Object.keys(fixedNumbers).forEach(m => document.getElementById(m).classList.remove("active"));
     } catch (err) {
         alert("Error: " + err.message);
     }

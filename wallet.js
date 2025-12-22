@@ -7,47 +7,38 @@ const fixedNumbers = {
     "rocket": "01797632229"
 };
 
-function updateNumber() {
+window.updateNumber = function () {
     const method = document.getElementById("paymentMethod").value;
     document.getElementById("paymentNumber").innerText =
         fixedNumbers[method] ? `${method}: ${fixedNumbers[method]}` : "মেথড নির্বাচন করুন";
-}
+};
 
-window.updateNumber = updateNumber;
+window.depositMoney = async function () {
 
-async function depositMoney() {
     const amount = document.getElementById("depositAmount").value.trim();
     const method = document.getElementById("paymentMethod").value.trim();
-    const trx = document.getElementById("trxid").value.trim();
-    const user = localStorage.getItem("currentUser");
+    const trxid = document.getElementById("trxid").value.trim();
+    const phone = localStorage.getItem("currentUser");
 
-    if (!amount || !method || !trx) {
-        alert("সব তথ্য দিন");
-        return;
-    }
+    if (!phone) return alert("Login first!");
+    if (!amount || !method) return alert("Amount & Method দিন!");
 
-    if (!user) {
-        alert("লগইন প্রয়োজন");
-        return;
-    }
-
-    const depositData = {
-        user,
-        amount,
+    const data = {
+        user: phone,
+        amount: Number(amount),
         method,
         number: fixedNumbers[method],
-        trx,
+        trxid: trxid || "N/A",
         status: "pending",
-        time: new Date().toLocaleString()
+        date: new Date().toLocaleString()
     };
 
-    await push(ref(db, "pendingDeposits"), depositData);
+    await push(ref(db, "pendingDeposits"), data);
 
-    alert("ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে");
-    
+    alert("ডিপোজিট রিকোয়েস্ট পাঠানো হয়েছে!");
+
     document.getElementById("depositAmount").value = "";
     document.getElementById("paymentMethod").value = "";
     document.getElementById("trxid").value = "";
-}
-
-window.depositMoney = depositMoney;
+    updateNumber();
+};

@@ -1,49 +1,14 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <title>রেজিস্টার</title>
-    <link rel="stylesheet" href="style.css">
+<form id="registerForm">
+    <input type="number" id="phone" placeholder="মোবাইল নম্বর">
+    <input type="password" id="password" placeholder="পাসওয়ার্ড">
+    <input type="password" id="confirmPassword" placeholder="কনফার্ম পাসওয়ার্ড">
+    <input type="number" id="withdrawPin" placeholder="উত্তোলন পিন (৪ সংখ্যা)">
+    <input type="text" id="inviteCode" placeholder="রেফার কোড">
 
-    <style>
-        body {
-            text-align: center;
-            padding-top: 60px;
-        }
-        input {
-            width: 80%;
-            margin: 8px;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-        }
-        button {
-            width: 85%;
-            padding: 12px;
-            background: #4B7BFF;
-            color: white;
-            border: none;
-            border-radius: 8px;
-        }
-        h2 {
-            margin-bottom: 20px;
-        }
-    </style>
+    <button type="submit">রেজিস্টার</button>
+</form>
 
-</head>
-<body>
-
-<h2>রেজিস্টার</h2>
-
-<input type="tel" id="phone" placeholder="মোবাইল নাম্বার">
-<input type="password" id="password" placeholder="পাসওয়ার্ড">
-
-<button onclick="register()">রেজিস্টার</button>
-
-<p style="margin-top:15px">Already have account? <a href="login.html">Login</a></p>
+<a href="login.html">লগইন</a>
 
 <script type="module" src="firebase-config.js"></script>
 <script type="module" src="register.js"></script>
-
-</body>
-</html>

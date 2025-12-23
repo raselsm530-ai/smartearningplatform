@@ -74,4 +74,6 @@ function depositMoney() {
 
     document.getElementById("depositAmount").value = "";
     document.getElementById("trxid").value = "";
+}function setAmount(amount) {
+    document.getElementById("depositAmount").value = amount;
 }

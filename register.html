@@ -3,24 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>রেজিস্টার</title>
+<title>Register</title>
+
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="auth.css">
 </head>
 
 <body class="auth-bg">
 
 <div class="auth-box">
-    <h2>রেজিস্টার</h2>
+    <h2>রেজিস্ট্রেশন</h2>
 
-    <input type="tel" id="phone" placeholder="মোবাইল নাম্বার">
-    <input type="password" id="password" placeholder="পাসওয়ার্ড">
-    <input type="password" id="cpassword" placeholder="কনফার্ম পাসওয়ার্ড">
+    <form id="registerForm">
+        <input type="tel" id="phone" placeholder="মোবাইল নাম্বার" required>
+        <input type="password" id="password" placeholder="পাসওয়ার্ড" required>
+        <input type="password" id="cpassword" placeholder="কনফার্ম পাসওয়ার্ড" required>
 
-    <button onclick="register()">রেজিস্টার</button>
+        <button type="submit">রেজিস্টার</button>
+    </form>
 
-    <p>আগে থেকেই একাউন্ট আছে?
-        <a href="login.html">লগইন</a>
-    </p>
+    <p>আগেই অ্যাকাউন্ট আছে? <a href="login.html">লগইন</a></p>
 </div>
 
 <script type="module" src="register.js"></script>

@@ -1,7 +1,13 @@
 import { db } from "./firebase-config.js";
 import { ref, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Pending Deposits লোড করা
+// Check admin login
+if(localStorage.getItem("adminLoggedIn") !== "true") {
+    alert("Login করুন");
+    location.href = "admin-login.html";
+}
+
+// Load pending deposits
 function loadPending() {
     const tableBody = document.querySelector("#pendingTable tbody");
     tableBody.innerHTML = "";
@@ -9,7 +15,7 @@ function loadPending() {
     const depositsRef = ref(db, "deposits");
     onValue(depositsRef, snapshot => {
         const data = snapshot.val();
-        if (!data) return;
+        if(!data) return;
 
         Object.keys(data).forEach(key => {
             const dep = data[key];
@@ -34,7 +40,7 @@ function loadPending() {
     });
 }
 
-// Approve Deposit + Update User Balance
+// Approve deposit
 window.approveDeposit = async function(key) {
     const depositRef = ref(db, `deposits/${key}`);
     const snapshot = await get(depositRef);
@@ -47,18 +53,17 @@ window.approveDeposit = async function(key) {
 
     const newBalance = (userData.balance || 0) + Number(dep.amount);
     await update(userRef, { balance: newBalance });
-
     await update(depositRef, { status: "approved" });
 
     alert(`Deposit Approved ✅\nNew Balance: ${newBalance} ৳`);
 }
 
-// Reject Deposit
+// Reject deposit
 window.rejectDeposit = async function(key) {
     const depositRef = ref(db, `deposits/${key}`);
     await update(depositRef, { status: "rejected" });
     alert("Deposit Rejected ❌");
 }
 
-// প্রথমবার Pending লোড
+// Initial load
 loadPending();

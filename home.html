@@ -3,34 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home</title>
-
+<title>হোমপেজ</title>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="home.css">
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4B7BFF, #8E54E9);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+}
+
+.container {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 450px;
+}
+
+h1 { margin-bottom: 20px; }
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+#balance {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 15px 0;
+    color: #22c55e;
+}
+</style>
 </head>
+<body>
 
-<body class="home-bg">
+<div class="container">
+    <h1>স্বাগতম হোমপেজে</h1>
+    <p>আপনার ব্যালেন্স:</p>
+    <div id="balance">0 ৳</div>
 
-<div class="home-container">
-
-    <div class="home-header">
-        <h2>Smart Earning</h2>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-
-    <div class="balance-card">
-        <p>আপনার ব্যালেন্স</p>
-        <h1>৳ <span id="balance">0</span></h1>
-    </div>
-
-    <div class="menu-grid">
-        <button onclick="go('wallet.html')">💰 Wallet</button>
-        <button onclick="alert('Package coming soon')">📦 Package</button>
-        <button onclick="alert('Withdraw coming soon')">🏧 Withdraw</button>
-    </div>
-
+    <button onclick="goWallet()">ওয়ালেট</button>
+    <button onclick="logout()">লগআউট</button>
 </div>
 
-<script type="module" src="home.js"></script>
+<script type="module">
+import { db } from './firebase-config.js';
+import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
+
+function updateBalanceUI(phone) {
+    const userRef = ref(db, 'users/' + phone);
+    onValue(userRef, snapshot => {
+        const data = snapshot.val();
+        if(data) {
+            document.getElementById('balance').innerText = data.balance + ' ৳';
+        }
+    });
+}
+
+function goWallet() { window.location.href = 'wallet.html'; }
+
+function logout() {
+    localStorage.removeItem('loggedInUser');
+    window.location.href = 'login.html';
+}
+
+// check logged in
+const phone = localStorage.getItem('loggedInUser');
+if(!phone) {
+    window.location.href = 'login.html';
+} else {
+    updateBalanceUI(phone);
+}
+</script>
+
 </body>
 </html>

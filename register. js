@@ -2,42 +2,32 @@ import { auth, db } from "./firebase-config.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-window.register = function() {
+window.register = () => {
     const phone = document.getElementById("phone").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const cpassword = document.getElementById("cpassword").value.trim();
-    const pin = document.getElementById("pin").value.trim();
-    const refer = document.getElementById("refer").value.trim() || "NO-REF";
+    const pass = document.getElementById("password").value.trim();
+    const cpass = document.getElementById("cpassword").value.trim();
 
-    if (!phone || !password || !cpassword || !pin) {
+    if(!phone || !pass || !cpass) {
         alert("সব ঘর পূরণ করুন");
         return;
     }
 
-    if (password !== cpassword) {
-        alert("পাসওয়ার্ড মিলছে না");
-        return;
-    }
-
-    if (pin.length !== 4) {
-        alert("পিন ৪ সংখ্যার হতে হবে");
+    if(pass !== cpass) {
+        alert("পাসওয়ার্ড মেলেনি");
         return;
     }
 
     const email = phone + "@app.com";
 
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, pass)
         .then(user => {
             set(ref(db, "users/" + phone), {
                 phone,
-                password,
-                withdrawPin: pin,
-                refCode: refer,
                 balance: 0,
                 joined: new Date().toLocaleString()
             });
             alert("রেজিস্ট্রেশন সফল 👍");
-            window.location.href = "login.html";
+            location.href = "login.html";
         })
         .catch(err => {
             alert("Error: " + err.message);

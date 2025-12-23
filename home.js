@@ -1,31 +1,43 @@
 import { db } from "./firebase-config.js";
 import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-const userPhone = localStorage.getItem("user");
-
-// ইউজার লগইন না থাকলে লগইন পেজে
-if (!userPhone) {
+const user = localStorage.getItem("user");
+if (!user) {
     alert("Login করুন");
-    window.location.href = "login.html";
+    location.href = "login.html";
 }
 
-// রিয়েল টাইম ব্যালেন্স
-const balanceRef = ref(db, "users/" + userPhone + "/balance");
-onValue(balanceRef, (snapshot) => {
+// রিয়েল-টাইম ব্যালেন্স
+const balanceRef = ref(db, `users/${user}/balance`);
+onValue(balanceRef, snapshot => {
     const balance = snapshot.val() || 0;
-    document.getElementById("balance").innerText = balance + " ৳";
+    document.getElementById("balance").innerText = balance;
 });
 
-// স্বাগতম টেক্সট
-const welcomeRef = ref(db, "users/" + userPhone + "/phone");
-onValue(welcomeRef, (snapshot) => {
-    const phone = snapshot.val();
-    document.getElementById("welcomeText").innerText = `স্বাগতম ${phone}`;
+// ডিপোজিট হিস্ট্রি
+const depositsRef = ref(db, "deposits");
+onValue(depositsRef, snapshot => {
+    const data = snapshot.val() || {};
+    const table = document.getElementById("depositTable");
+    table.innerHTML = "";
+
+    Object.keys(data).forEach(key => {
+        const dep = data[key];
+        if(dep.user !== user) return;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${dep.amount} ৳</td>
+            <td>${dep.method}</td>
+            <td>${dep.status}</td>
+            <td>${dep.date}</td>
+        `;
+        table.appendChild(tr);
+    });
 });
 
-// লগআউট
-window.logoutUser = function() {
+// লগ আউট
+window.logout = function() {
     localStorage.removeItem("user");
-    alert("লগআউট সফল");
-    window.location.href = "login.html";
-};
+    location.href = "login.html";
+}

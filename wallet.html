@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <title>ওয়ালেট</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="wallet.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ডিপোজিট</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="wallet.css">
 </head>
 <body>
 
 <div class="container">
-    <h2>ওয়ালেট ডিপোজিট</h2>
+<h2>ডিপোজিট করুন</h2>
 
-    <p>অ্যামাউন্ট নির্বাচন করুন👇</p>
-
-    <div class="amount-area">
-        <button class="amount" data-amount="500">500</button>
-        <button class="amount" data-amount="1000">1000</button>
-        <button class="amount" data-amount="3000">3000</button>
-        <button class="amount" data-amount="5000">5000</button>
-    </div>
-
-    <div id="selectedBox" class="info">এখনো কিছু নির্বাচন করা হয়নি</div>
-
-    <select id="method">
-        <option value="">মেথড নির্বাচন করুন</option>
-        <option value="বিকাশ">বিকাশ</option>
-        <option value="নগদ">নগদ</option>
-        <option value="রকেট">রকেট</option>
-    </select>
-
-    <div id="numberBox" class="info hidden"></div>
-
-    <button class="submit" onclick="deposit()">ডিপোজিট করুন</button>
+<div class="amount-grid">
+  <button onclick="selectAmount(500)">৳500</button>
+  <button onclick="selectAmount(3000)">৳3000</button>
+  <button onclick="selectAmount(5000)">৳5000</button>
+  <button onclick="selectAmount(10000)">৳10000</button>
 </div>
 
-<script src="wallet.js"></script>
+<p>Selected Amount: <strong id="showAmount">0</strong> ৳</p>
 
+<select id="method">
+  <option value="">পেমেন্ট মেথড</option>
+  <option value="bkash">Bkash</option>
+  <option value="nagad">Nagad</option>
+  <option value="rocket">Rocket</option>
+</select>
+
+<p class="fixed-number">Send Money: <strong>01797632229</strong></p>
+
+<input type="text" id="trxid" placeholder="Transaction ID">
+<input type="file" id="screenshot">
+
+<button onclick="submitDeposit()">Submit Deposit</button>
+</div>
+
+<script type="module" src="wallet.js"></script>
 </body>
 </html>

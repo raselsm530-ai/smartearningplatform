@@ -1,0 +1,83 @@
+/* ================= GLOBAL RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #4B7BFF, #6A5BFF);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================= FORM CONTAINER ================= */
+.register-box {
+    width: 90%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* TITLE */
+.register-box h2 {
+    font-size: 28px;
+    color: #4B7BFF;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* INPUT FIELDS */
+.register-box input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* BUTTON */
+.register-box button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #10b981, #22c55e);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: 0.2s;
+}
+
+.register-box button:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+/* LINKS */
+.register-box p {
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+.register-box a {
+    color: #4B7BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* MOBILE SAFE */
+@media (max-width: 480px) {
+    .register-box {
+        padding: 20px;
+    }
+}

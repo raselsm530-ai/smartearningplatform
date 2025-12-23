@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f4f8;
+    padding: 20px;
+}
+
+.admin-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #d1d5db;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #4B7BFF;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+button {
+    padding: 6px 12px;
+    background: #10b981;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.reject {
+    background: #ef4444;
+}

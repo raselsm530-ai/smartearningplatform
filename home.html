@@ -1,57 +1,130 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>হোম</title>
-
-    <link rel="stylesheet" href="home.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>হোম</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: #fff;
+}
+.header {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.balance-box {
+    background: #eef2ff;
+    color: #1e40af;
+    padding: 20px;
+    width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 14px;
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 20px;
+}
+.button-grid button {
+    padding: 18px 0;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg,#4B7BFF,#6A5BFF);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.button-grid button:active {
+    transform: scale(0.96);
+}
+.deposit-history {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    color: #000;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+.deposit-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.deposit-history th, .deposit-history td {
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 14px;
+}
+.deposit-history th { background: #4B7BFF; color: #fff; }
+.logout-btn {
+    margin-top: 10px;
+    padding: 14px;
+    width: 100%;
+    max-width: 420px;
+    border: none;
+    border-radius: 16px;
+    background: #ef4444;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
 </head>
-
 <body>
+<div class="header">
+    <h2>স্বাগতম</h2>
+</div>
 
-    <!-- Header -->
-    <div class="header">
-        <h2 id="welcomeUser">স্বাগতম</h2>
-    </div>
+<div class="balance-box">
+    ব্যালেন্স: ৳<span id="balance">0</span>
+</div>
 
-    <!-- Balance -->
-    <div class="balance-card">
-        <p>বর্তমান ব্যালেন্স</p>
-        <h1 id="balance">৳ 0</h1>
-    </div>
+<div class="button-grid">
+    <button onclick="location.href='wallet.html'">ওয়ালেট</button>
+    <button onclick="alert('প্যাকেজ ফিচার আসছে')">প্যাকেজ</button>
+    <button onclick="alert('উইথড্র ফিচার আসছে')">উইথড্র</button>
+</div>
 
-    <!-- Menu -->
-    <div class="menu-grid">
+<div class="deposit-history">
+    <h3>Deposit History</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="depositTable">
+            <!-- Deposit history will appear here -->
+        </tbody>
+    </table>
+</div>
 
-        <div class="menu-btn" onclick="location.href='wallet.html'">
-            💰 ওয়ালেট
-        </div>
+<button class="logout-btn" onclick="logout()">লগ আউট</button>
 
-        <div class="menu-btn" onclick="location.href='package.html'">
-            🎁 প্যাকেজ
-        </div>
-
-        <div class="menu-btn" onclick="location.href='withdraw.html'">
-            💵 উইথড্র
-        </div>
-
-        <div class="menu-btn" onclick="location.href='history.html'">
-            📜 হিস্টরি
-        </div>
-
-        <div class="menu-btn" onclick="location.href='profile.html'">
-            👤 প্রোফাইল
-        </div>
-
-        <div class="menu-btn logout" onclick="logoutUser()">
-            🚪 লগআউট
-        </div>
-
-    </div>
-
-    <script type="module" src="home.js"></script>
+<script type="module" src="home.js"></script>
 </body>
-
 </html>

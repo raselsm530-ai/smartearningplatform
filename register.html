@@ -1,59 +1,123 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রেজিস্টার</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-<style>
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#4facfe,#00f2fe);
-  font-family:sans-serif;
-}
-.box{
-  background:#fff;
-  padding:25px;
-  width:90%;
-  max-width:350px;
-  border-radius:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-h2{text-align:center;color:#333}
-input,button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:15px;
-}
-button{
-  background:#4facfe;
-  color:#fff;
-  border:none;
-  font-weight:bold;
-}
-</style>
+        .register-box {
+            width: 90%;
+            max-width: 420px;
+            background: #f5f7ff;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+
+        h2 { margin-bottom: 20px; }
+
+        input {
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #4B7BFF;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            margin-top: 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        p { margin-top:15px; }
+    </style>
 </head>
-
 <body>
 
-<div class="box">
-  <h2>Register</h2>
+<div class="register-box">
+    <h2>রেজিস্টার</h2>
 
-  <input id="phone" type="text" placeholder="Phone Number">
-  <input id="password" type="password" placeholder="Password">
-  <input id="confirm" type="password" placeholder="Confirm Password">
+    <input type="tel" id="phone" placeholder="মোবাইল নাম্বার">
+    <input type="password" id="password" placeholder="পাসওয়ার্ড">
+    <input type="password" id="cpassword" placeholder="কনফার্ম পাসওয়ার্ড">
+    
+    <button type="button" onclick="registerUser()">রেজিস্টার</button>
 
-  <!-- type="button" খুব গুরুত্বপূর্ণ -->
-  <button type="button" id="registerBtn">Register</button>
+    <p>ইতিমধ্যে অ্যাকাউন্ট আছে? <a href="login.html">লগইন</a></p>
 </div>
 
-<script type="module" src="register.js"></script>
+<script type="module">
+import { auth, db } from './firebase-config.js';
+import { createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import { ref, set } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
+
+function isValidPhone(phone) {
+    return /^\d{11}$/.test(phone); // 11 সংখ্যার মোবাইল
+}
+
+window.registerUser = async function() {
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const cpassword = document.getElementById('cpassword').value.trim();
+
+    if (!phone || !password || !cpassword) {
+        alert('সব তথ্য দিন');
+        return;
+    }
+
+    if (!isValidPhone(phone)) {
+        alert('সঠিক মোবাইল নাম্বার দিন (১১ সংখ্যা)');
+        return;
+    }
+
+    if (password !== cpassword) {
+        alert('পাসওয়ার্ড এবং কনফার্ম পাসওয়ার্ড মিলছে না');
+        return;
+    }
+
+    try {
+        // Firebase Auth: email+password register (phone number as fake email)
+        const fakeEmail = `${phone}@smartplatform.com`;
+        const userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, password);
+
+        // Firebase Database: create user data
+        await set(ref(db, 'users/' + phone), {
+            phone,
+            balance: 0,
+            createdAt: new Date().toISOString()
+        });
+
+        alert('রেজিস্ট্রেশন সফল ✅');
+        window.location.href = 'login.html';
+    } catch (error) {
+        alert(error.message);
+    }
+}
+</script>
+
 </body>
 </html>

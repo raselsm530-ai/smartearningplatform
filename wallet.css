@@ -1,19 +1,120 @@
+/* ================= WALLET PAGE THEME ================= */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4B7BFF, #8E54E9);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main container */
+.container {
+    width: 92%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+/* Title */
+.container h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #1f2937;
+}
+
+/* Amount selection grid */
 .amount-grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
-  margin: 15px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
 }
+
 .amount-grid button {
-  padding: 15px;
-  background:#4B7BFF;
-  color:#fff;
-  border:none;
-  border-radius:12px;
-  font-size:18px;
+    padding: 16px 0;
+    background: linear-gradient(135deg, #4B7BFF, #6A5BFF);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
 }
+
+.amount-grid button:active {
+    transform: scale(0.96);
+}
+
+.amount-grid button:hover {
+    box-shadow: 0 6px 16px rgba(75,123,255,0.45);
+}
+
+/* Selected amount text */
+#showAmount {
+    color: #4B7BFF;
+    font-size: 20px;
+}
+
+p {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #374151;
+}
+
+/* Select + Inputs */
+select,
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+    background: #f9fafb;
+}
+
+/* Fixed number box */
 .fixed-number {
-  margin:10px 0;
-  font-size:18px;
-  color:#1e40af;
+    background: #eef2ff;
+    border-radius: 14px;
+    padding: 14px;
+    margin: 12px 0;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1e40af;
+}
+
+/* Submit button */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 16px;
+    background: linear-gradient(135deg, #10b981, #22c55e);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Mobile safe */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
 }

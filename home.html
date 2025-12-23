@@ -3,89 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>হোমপেজ</title>
+<title>হোম</title>
 <link rel="stylesheet" href="style.css">
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4B7BFF, #8E54E9);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: #fff;
-}
-
-.container {
-    background: rgba(255,255,255,0.05);
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    width: 90%;
-    max-width: 450px;
-}
-
-h1 { margin-bottom: 20px; }
-button {
-    padding: 12px 25px;
-    margin: 10px;
-    border-radius: 12px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-}
-
-#balance {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 15px 0;
-    color: #22c55e;
-}
-</style>
 </head>
 <body>
-
-<div class="container">
-    <h1>স্বাগতম হোমপেজে</h1>
-    <p>আপনার ব্যালেন্স:</p>
-    <div id="balance">0 ৳</div>
-
-    <button onclick="goWallet()">ওয়ালেট</button>
+<div class="home-box">
+    <h2>স্বাগতম</h2>
+    <p>আপনার মোবাইল: <strong id="showPhone"></strong></p>
+    <p>ব্যালেন্স: ৳<strong id="balance">0</strong></p>
     <button onclick="logout()">লগআউট</button>
 </div>
 
 <script type="module">
-import { db } from './firebase-config.js';
-import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
+import { db } from "./firebase-config.js";
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-function updateBalanceUI(phone) {
-    const userRef = ref(db, 'users/' + phone);
-    onValue(userRef, snapshot => {
-        const data = snapshot.val();
-        if(data) {
-            document.getElementById('balance').innerText = data.balance + ' ৳';
-        }
+const phone = localStorage.getItem("loggedInUser");
+if(!phone) {
+    window.location.href = "login.html";
+} else {
+    document.getElementById("showPhone").innerText = phone;
+    const balRef = ref(db, "users/" + phone + "/balance");
+    onValue(balRef, snap => {
+        document.getElementById("balance").innerText = snap.val() || 0;
     });
 }
 
-function goWallet() { window.location.href = 'wallet.html'; }
-
-function logout() {
-    localStorage.removeItem('loggedInUser');
-    window.location.href = 'login.html';
-}
-
-// check logged in
-const phone = localStorage.getItem('loggedInUser');
-if(!phone) {
-    window.location.href = 'login.html';
-} else {
-    updateBalanceUI(phone);
+window.logout = () => {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "login.html";
 }
 </script>
-
 </body>
-</html>
+</html>        

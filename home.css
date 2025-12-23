@@ -1,75 +1,58 @@
-* {
+.home-bg {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    min-height: 100vh;
+    background: linear-gradient(135deg,#4B7BFF,#8E54E9);
+    font-family: Arial, sans-serif;
 }
 
-body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #4b6cb7, #182848);
-    font-family: 'Poppins', sans-serif;
-    padding: 15px;
+.home-container {
+    max-width: 420px;
+    margin: auto;
+    padding: 20px;
+}
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #fff;
 }
 
-/* Header */
-.header {
-    text-align: center;
-    padding: 20px;
+.logout-btn {
+    background: #ef4444;
+    border: none;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 10px;
 }
 
-.header h2 {
-    font-size: 28px;
-    font-weight: 600;
-}
-
-/* Balance Card */
 .balance-card {
-    background: #ffffff;
-    color: #222;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 20px;
+    margin: 25px 0;
+    background: #fff;
+    padding: 25px;
     border-radius: 20px;
-    padding: 20px;
     text-align: center;
-    font-weight: 600;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
 }
 
 .balance-card h1 {
-    font-size: 40px;
-    color: #0d47a1;
+    color: #4B7BFF;
+    font-size: 36px;
+    margin: 10px 0 0;
 }
 
-
-/* Menu Grid */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2,1fr);
     gap: 14px;
-    max-width: 400px;
-    margin: 0 auto;
 }
 
-/* Menu Button */
-.menu-btn {
-    background: linear-gradient(135deg, #f7971e, #ffd200);
-    padding: 22px;
+.menu-grid button {
+    padding: 18px 0;
+    border: none;
     border-radius: 16px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    color: #222;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.menu-btn:hover {
-    transform: scale(1.05);
-}
-
-.logout {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    color: white !important;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg,#10b981,#22c55e);
 }

@@ -8,7 +8,6 @@ window.login = () => {
 
     signInWithEmailAndPassword(auth, email, pass)
         .then(() => {
-            // ⚡ এখানে লোকালস্টোরেজে সেভ করা জরুরি
             localStorage.setItem("user", phone);
             alert("লগইন সফল 🎉");
             location.href = "home.html";

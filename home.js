@@ -1,42 +1,43 @@
 import { db } from "./firebase-config.js";
-import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { ref, onValue, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+// --------------------
+// Login Check
+// --------------------
 const user = localStorage.getItem("user");
-if (!user) {
-    alert("Login করুন");
+if(!user) {
+    alert("দয়া করে লগইন করুন");
     location.href = "login.html";
 }
 
-// রিয়েল-টাইম ব্যালেন্স
-const balanceRef = ref(db, `users/${user}/balance`);
-onValue(balanceRef, snapshot => {
-    const balance = snapshot.val() || 0;
-    document.getElementById("balance").innerText = balance;
+// --------------------
+// Show Username
+// --------------------
+document.getElementById("username").innerText = user;
+
+// --------------------
+// Real-time Balance Update
+// --------------------
+const balanceEl = document.getElementById("balance");
+const userRef = ref(db, `users/${user}`);
+
+onValue(userRef, snapshot => {
+    const data = snapshot.val();
+    const balance = data?.balance || 0;
+    balanceEl.innerText = balance;
 });
 
-// ডিপোজিট হিস্ট্রি
-const depositsRef = ref(db, "deposits");
-onValue(depositsRef, snapshot => {
-    const data = snapshot.val() || {};
-    const table = document.getElementById("depositTable");
-    table.innerHTML = "";
+// --------------------
+// Button Actions
+// --------------------
+window.goToWallet = function() {
+    location.href = "wallet.html";
+}
 
-    Object.keys(data).forEach(key => {
-        const dep = data[key];
-        if(dep.user !== user) return;
+window.goToPackages = function() {
+    location.href = "packages.html"; // যদি প্যাকেজ পেজ আছে
+}
 
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td>${dep.amount} ৳</td>
-            <td>${dep.method}</td>
-            <td>${dep.status}</td>
-            <td>${dep.date}</td>
-        `;
-        table.appendChild(tr);
-    });
-});
-
-// লগ আউট
 window.logout = function() {
     localStorage.removeItem("user");
     location.href = "login.html";

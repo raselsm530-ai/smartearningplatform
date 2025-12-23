@@ -1,20 +1,33 @@
 import { auth } from "./firebase-config.js";
-import { signInWithEmailAndPassword } from
-  "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { signInWithEmailAndPassword, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-const form = document.getElementById("loginForm");
+window.login = async function () {
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    const phone = document.getElementById("phone").value.trim();
+    const pass = document.getElementById("password").value.trim();
 
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
+    if (!phone || !pass) {
+        alert("সব ঘর পূরণ করুন");
+        return;
+    }
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    alert("✅ Login Successful");
-    window.location.href = "home.html";
-  } catch (err) {
-    alert("❌ " + err.message);
-  }
+    const email = phone + "@app.com";
+
+    try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        localStorage.setItem("user", phone);
+        window.location.href = "home.html";
+    } catch (err) {
+        alert("ভুল নাম্বার বা পাসওয়ার্ড");
+    }
+};
+
+// 🔒 Login loop FIX
+onAuthStateChanged(auth, user => {
+    if (user && localStorage.getItem("user")) {
+        if (location.pathname.includes("login")) {
+            location.href = "home.html";
+        }
+    }
 });
